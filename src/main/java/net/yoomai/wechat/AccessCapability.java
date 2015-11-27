@@ -47,7 +47,7 @@ public class AccessCapability {
      * @return
      */
     public JSApiTicket getJSTicket(GlobalAccessToken globalAccessToken) {
-        String accessToken = globalAccessToken.getAccessToken();
+        String accessToken = globalAccessToken.getAccess_token();
         String url = _JSAPI_TICKET_URL_ + "?access_token=" + accessToken + "&type=jsapi";
         String result = WebUtils.get(url);
 

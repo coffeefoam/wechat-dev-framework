@@ -11,7 +11,7 @@ package net.yoomai.wechat.beans;
  * @(#)GlobalAccessToken.java 1.0 27/11/2015
  */
 public class GlobalAccessToken {
-    private String accessToken;
+    private String access_token;
     private int expires;
 
     public int getExpires() {
@@ -22,11 +22,11 @@ public class GlobalAccessToken {
         this.expires = expires;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public String getAccess_token() {
+        return access_token;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
 }
