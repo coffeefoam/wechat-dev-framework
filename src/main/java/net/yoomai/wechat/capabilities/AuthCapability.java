@@ -22,7 +22,7 @@ import java.util.Map;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)AuthCapability.java 1.0 27/11/2015
  */
-public class AuthCapability extends AccessCapability {
+public class AuthCapability {
     /**
      * 用户授权地址
      */
