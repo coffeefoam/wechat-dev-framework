@@ -12,9 +12,24 @@ package net.yoomai.wechat.config;
  */
 public interface WechatConfig {
     /*
+     * 微信appid
+     */
+    public static final String _APP_ID_ = "";
+
+    /*
+     * 微信秘钥
+     */
+    public static final String _APP_SECRET_ = "";
+
+    /*
      * 微信商户账号
      */
     public static final String _WX_MCHID_ = "";
+
+    /*
+     * 微信商户KEY
+     */
+    public static final String _WX_MCH_KEY_ = "";
 
     /*
      * 微信商户证书位置
