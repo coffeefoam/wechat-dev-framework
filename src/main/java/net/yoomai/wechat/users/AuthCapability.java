@@ -23,11 +23,20 @@ import java.util.Map;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)AuthCapability.java 1.0 27/11/2015
  */
-public class AuthCapability extends AccessCapability{
+public class AuthCapability extends AccessCapability {
+    /**
+     * 用户授权地址
+     */
     private static final String _USER_AUTH_URL_ = "https://open.weixin.qq.com/connect/oauth2/authorize";
 
+    /**
+     * 用户获得访问令牌地址
+     */
     private static final String _ACCESS_URL_ = "https://api.weixin.qq.com/sns/oauth2/access_token";
 
+    /**
+     * 获取用户基础信息地址
+     */
     private static final String _USER_INFO_URL_ = "http://api.weixin.qq.com/sns/userinfo";
 
     /**
