@@ -6,6 +6,7 @@ package net.yoomai.wechat;
 
 import com.google.gson.Gson;
 import net.yoomai.wechat.beans.GlobalAccessToken;
+import net.yoomai.wechat.beans.JSApiTicket;
 import net.yoomai.wechat.config.WechatConfig;
 import net.yoomai.wechat.utils.WebUtils;
 
@@ -17,6 +18,8 @@ import net.yoomai.wechat.utils.WebUtils;
  */
 public class AccessCapability {
     private static final String _ACCESS_TOKEN_URL_ = "https://api.weixin.qq.com/cgi-bin/token";
+
+    private static final String _JSAPI_TICKET_URL_ = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
 
     /**
      * 获得具有中控访问能力的access令牌
@@ -35,5 +38,25 @@ public class AccessCapability {
         }
 
         return globalAccessToken;
+    }
+
+    /**
+     * 获取js api票据信息
+     *
+     * @param globalAccessToken
+     * @return
+     */
+    public JSApiTicket getJSTicket(GlobalAccessToken globalAccessToken) {
+        String accessToken = globalAccessToken.getAccessToken();
+        String url = _JSAPI_TICKET_URL_ + "?access_token=" + accessToken + "&type=jsapi";
+        String result = WebUtils.get(url);
+
+        JSApiTicket jsApiTicket = null;
+        if (result != null) {
+            Gson gson = new Gson();
+            jsApiTicket = gson.fromJson(result, JSApiTicket.class);
+        }
+
+        return jsApiTicket;
     }
 }
