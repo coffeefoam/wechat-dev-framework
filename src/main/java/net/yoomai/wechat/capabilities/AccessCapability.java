@@ -2,7 +2,7 @@
  * Copyright (c) 2014, wolaiyee.com. All rights reserved.
  * wolaiyee.com. Use is subject to license terms.
  */
-package net.yoomai.wechat;
+package net.yoomai.wechat.capabilities;
 
 import com.google.gson.Gson;
 import net.yoomai.wechat.beans.GlobalAccessToken;
