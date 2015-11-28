@@ -14,6 +14,8 @@ public class CustomerMessage implements Message {
     private String touser;
     private String msgtype;
 
+    static final String TEXT = "text";
+
     public CustomerMessage(String touser, String msgtype) {
         this.touser = touser;
         this.msgtype = msgtype;
