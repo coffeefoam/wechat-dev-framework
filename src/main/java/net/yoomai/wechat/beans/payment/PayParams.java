@@ -21,8 +21,11 @@ public class PayParams {
     private String spbillCreateIp; // 客户端IP
     private String notifyURL; // 通知支付结果的地址
     private String tradeType; // JSAPI
+    private String openId; // 用户标识
 
-    public PayParams(String appId, String mchId, String nonceStr, String sign, String body, String outTradeNo, int totalFee, String spbillCreateIp, String notifyURL, String tradeType) {
+    public PayParams(String appId, String mchId, String nonceStr, String sign, String body,
+                     String outTradeNo, int totalFee, String spbillCreateIp, String notifyURL,
+                     String tradeType, String openId) {
         this.appId = appId;
         this.mchId = mchId;
         this.nonceStr = nonceStr;
@@ -33,6 +36,7 @@ public class PayParams {
         this.spbillCreateIp = spbillCreateIp;
         this.notifyURL = notifyURL;
         this.tradeType = tradeType;
+        this.openId = openId;
     }
 
     public String getAppId() {
@@ -73,5 +77,9 @@ public class PayParams {
 
     public String getTradeType() {
         return tradeType;
+    }
+
+    public String getOpenId() {
+        return openId;
     }
 }

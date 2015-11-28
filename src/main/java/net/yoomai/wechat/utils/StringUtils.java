@@ -4,6 +4,9 @@
  */
 package net.yoomai.wechat.utils;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -63,6 +66,34 @@ public class StringUtils {
         }
 
         return buffer.toString();
+    }
+
+    /**
+     * 根据参数获得相关签名
+     *
+     * @param params  加密参数，ASCII 码从小到大排序（字典序）
+     * @param encrypt 加密方式 SHA1 MD5
+     * @return
+     */
+    public static String signature(Map params, String encrypt, boolean toUpperCase) {
+        String sign = "";
+        // 拼接字符串，按照字典排序
+        String buffer = generateQueryString(params, true);
+        // log.debug("待加密的字符串 => {}", buffer.toString());
+        if ("MD5".equals(encrypt)) {
+            // MD5加密
+            sign = Hashing.md5().hashString(buffer, Charsets.UTF_8).toString();
+        } else if ("SHA1".equals(encrypt)) {
+            // SHA1加密
+            sign = Hashing.sha1().hashString(buffer, Charsets.UTF_8).toString();
+        }
+        // log.debug("加密后的字符串 <=> {}", sign);
+
+        if (toUpperCase) {
+            sign = sign.toUpperCase();
+        }
+
+        return sign;
     }
 
 }

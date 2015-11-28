@@ -37,6 +37,11 @@ public interface WechatConfig {
     public static final String _WX_MCHID_PKCS_ = "";
 
     /*
+     * 微信支付点对点通知地址
+     */
+    public static final String _PAY_NOTIFY_URL_ = "";
+
+    /*
      * XML格式的数据
      */
     public static final String _DATA_XML_ = "xml";
