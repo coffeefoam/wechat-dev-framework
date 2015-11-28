@@ -8,11 +8,11 @@ package net.yoomai.wechat.beans.messages;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)ImageMessage.java 1.0 28/11/2015
  */
-public class ImageMessage extends CommonMessage {
+public class CommonImageMessage extends CommonMessage {
     private String picUrl;
     private String mediaId;
 
-    public ImageMessage(String toUserName, String fromUserName, long createTime, long msgId, String picUrl, String mediaId) {
+    public CommonImageMessage(String toUserName, String fromUserName, long createTime, long msgId, String picUrl, String mediaId) {
         super(toUserName, fromUserName, createTime, IMAGE, msgId);
         this.picUrl = picUrl;
         this.mediaId = mediaId;
