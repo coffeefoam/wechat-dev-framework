@@ -18,4 +18,12 @@ public class PayResponse {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
     }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public String getReturnMsg() {
+        return returnMsg;
+    }
 }
