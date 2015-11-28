@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<project name="wechat-dev" basedir=".">
+	<property name="proj.name" value="${ant.project.name}" />
+	<property name="proj.version" value="1.1" />
+
+	<property name="lib.dir" value="libs" />
+	<property name="src.main.dir" value="src/main/java" />
+	<property name="target.compile.main.dir" value="classes" />
+	<property name="target.dist" value="dist" />
+
+	<path id="master.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean" description="Clean output dir">
+		<delete dir="${target.compile.main.dir}" />
+	</target>
+
+	<target name="compile" description="Compile main source tree java files.">
+		<mkdir dir="${target.compile.main.dir}" />
+		<javac destdir="${target.compile.main.dir}" listfiles="true" deprecation="false" failonerror="true"
+			   encoding="UTF-8" debug="true">
+			<src path="${src.main.dir}" />
+			<classpath refid="master.classpath" />
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="${target.dist}/${proj.name}-${proj.version}.jar" basedir="${target.compile.main.dir}"/>
+	</target>
+</project>
