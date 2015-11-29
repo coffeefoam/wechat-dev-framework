@@ -78,7 +78,7 @@ public class PaymentCapability {
         );
 
         String params_xml_format = convert.reverse(payParams);
-        String ret = WebUtils.post(_PREPAYMENT_URL_, params_xml_format, "xml", false);
+        String ret = WebUtils.post(_PREPAYMENT_URL_, params_xml_format, WechatConfig._DATA_XML_, false);
 
         PayStatus payStatus = convert.convert(ret);
         return payStatus;
@@ -127,7 +127,7 @@ public class PaymentCapability {
                 WechatConfig._APP_ID_, WechatConfig._WX_MCHID_, outTradeNo, nonceStr, sign
         );
         String params_xml_format = convert.reverse(orderQueryParams);
-        String ret = WebUtils.post(_ORDER_QUERY_URL_, params_xml_format, "xml", false);
+        String ret = WebUtils.post(_ORDER_QUERY_URL_, params_xml_format, WechatConfig._DATA_XML_, false);
 
         return convert.convert(ret);
     }
@@ -161,7 +161,7 @@ public class PaymentCapability {
                 refundFee, opUserId
         );
         String params_xml_form = convert.reverse(refundParams);
-        String ret = WebUtils.post(_REFUND_URL_, params_xml_form, "xml", true);
+        String ret = WebUtils.post(_REFUND_URL_, params_xml_form, WechatConfig._DATA_XML_, true);
 
         return convert.convert(ret);
     }
