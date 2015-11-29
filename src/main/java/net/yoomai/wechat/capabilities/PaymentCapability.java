@@ -8,6 +8,7 @@ import net.yoomai.wechat.beans.payment.*;
 import net.yoomai.wechat.commands.Command;
 import net.yoomai.wechat.config.WechatConfig;
 import net.yoomai.wechat.converts.AppConvert;
+import net.yoomai.wechat.converts.PayConvert;
 import net.yoomai.wechat.exceptions.ConvertException;
 import net.yoomai.wechat.exceptions.OrderQueryException;
 import net.yoomai.wechat.utils.StringUtils;
@@ -40,7 +41,19 @@ public class PaymentCapability {
      */
     private static final String _REFUND_URL_ = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 
-    public void setConvert(AppConvert convert) {
+    /**
+     * 默认的转换模块是payconvert
+     */
+    public PaymentCapability() {
+        this.convert = new PayConvert();
+    }
+
+    /**
+     * 可重新定义转换模块
+     *
+     * @param convert
+     */
+    public PaymentCapability(AppConvert convert) {
         this.convert = convert;
     }
 
