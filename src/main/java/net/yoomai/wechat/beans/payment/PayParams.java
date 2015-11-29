@@ -4,23 +4,37 @@
  */
 package net.yoomai.wechat.beans.payment;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * 支付提交的参数
  *
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)PayParams.java 1.0 28/11/2015
  */
+@XStreamAlias("xml")
 public class PayParams {
+    @XStreamAlias("appid")
     private String appId; // 公众号ID
+    @XStreamAlias("mch_id")
     private String mchId; // 商户号
+    @XStreamAlias("nonce_str")
     private String nonceStr; // 随机数
+    @XStreamAlias("sign")
     private String sign; // 签名
+    @XStreamAlias("body")
     private String body; // 商品简单描述
+    @XStreamAlias("out_treade_no")
     private String outTradeNo; // 系统订单号
+    @XStreamAlias("total_fee")
     private int totalFee; // 订单总金额
+    @XStreamAlias("spbill_create_ip")
     private String spbillCreateIp; // 客户端IP
+    @XStreamAlias("notify_url")
     private String notifyURL; // 通知支付结果的地址
+    @XStreamAlias("trade_type")
     private String tradeType; // JSAPI
+    @XStreamAlias("openid")
     private String openId; // 用户标识
 
     public PayParams(String appId, String mchId, String nonceStr, String sign, String body,

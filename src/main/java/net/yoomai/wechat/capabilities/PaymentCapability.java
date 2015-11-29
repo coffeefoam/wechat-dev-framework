@@ -8,6 +8,7 @@ import net.yoomai.wechat.beans.payment.*;
 import net.yoomai.wechat.commands.Command;
 import net.yoomai.wechat.config.WechatConfig;
 import net.yoomai.wechat.converts.AppConvert;
+import net.yoomai.wechat.exceptions.ConvertException;
 import net.yoomai.wechat.exceptions.OrderQueryException;
 import net.yoomai.wechat.utils.StringUtils;
 import net.yoomai.wechat.utils.WebUtils;
@@ -55,7 +56,7 @@ public class PaymentCapability {
      * @return
      */
     public PayStatus prepayment(String body, String outTradeNo, int totalFee, String ip, String tradeType,
-                                String openId) {
+                                String openId) throws ConvertException {
         String nonceStr = StringUtils.randomString(8);
         // 此处写的好不优雅，有时间的话调整一下吧，OMG
         Map<String, Object> params = new HashMap<>();
@@ -80,7 +81,7 @@ public class PaymentCapability {
         String params_xml_format = convert.reverse(payParams);
         String ret = WebUtils.post(_PREPAYMENT_URL_, params_xml_format, WechatConfig._DATA_XML_, false);
 
-        PayStatus payStatus = convert.convert(ret);
+        PayStatus payStatus = convert.convert(ret, PayStatus.class);
         return payStatus;
     }
 
@@ -90,8 +91,8 @@ public class PaymentCapability {
      * @param payMessage
      * @return
      */
-    public PayResponse accept(String payMessage, Command command) {
-        NotifyStatus notifyStatus = convert.convert(payMessage);
+    public PayResponse accept(String payMessage, Command command) throws ConvertException {
+        NotifyStatus notifyStatus = convert.convert(payMessage, NotifyStatus.class);
 
         if ("SUCCESS".equals(notifyStatus.getReturnCode())) {
             command.execute(notifyStatus);
@@ -108,7 +109,7 @@ public class PaymentCapability {
      * @return
      * @throws OrderQueryException
      */
-    public OrderQueryResponse orderQuery(String outTradeNo) throws OrderQueryException {
+    public OrderQueryResponse orderQuery(String outTradeNo) throws OrderQueryException, ConvertException {
         if (outTradeNo == null || "".equals(outTradeNo.trim())) {
             throw new OrderQueryException("系统订单号和微信支付流水号只能填一个");
         }
@@ -129,7 +130,7 @@ public class PaymentCapability {
         String params_xml_format = convert.reverse(orderQueryParams);
         String ret = WebUtils.post(_ORDER_QUERY_URL_, params_xml_format, WechatConfig._DATA_XML_, false);
 
-        return convert.convert(ret);
+        return convert.convert(ret, OrderQueryResponse.class);
     }
 
     /**
@@ -142,7 +143,8 @@ public class PaymentCapability {
      * @param opUserId
      * @return
      */
-    public RefundResponse refund(String outTradeNo, String refundNo, int totalFee, int refundFee, String opUserId) {
+    public RefundResponse refund(String outTradeNo, String refundNo, int totalFee, int refundFee, String opUserId)
+            throws ConvertException {
         String nonceStr = StringUtils.randomString(8);
         Map<String, Object> params = new HashMap<>();
         params.put("appid", WechatConfig._APP_ID_);
@@ -163,6 +165,6 @@ public class PaymentCapability {
         String params_xml_form = convert.reverse(refundParams);
         String ret = WebUtils.post(_REFUND_URL_, params_xml_form, WechatConfig._DATA_XML_, true);
 
-        return convert.convert(ret);
+        return convert.convert(ret, RefundResponse.class);
     }
 }
