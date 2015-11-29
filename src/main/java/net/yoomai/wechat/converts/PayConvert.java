@@ -4,7 +4,6 @@
  */
 package net.yoomai.wechat.converts;
 
-import com.sun.tools.internal.ws.util.xml.XmlUtil;
 import net.yoomai.wechat.beans.payment.*;
 import net.yoomai.wechat.exceptions.ConvertException;
 import net.yoomai.wechat.utils.XmlUtils;
