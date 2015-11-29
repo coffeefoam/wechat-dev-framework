@@ -4,21 +4,33 @@
  */
 package net.yoomai.wechat.beans.payment;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * 支付后，微信后台异步通知结果
  *
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)NotifyStatus.java 1.0 28/11/2015
  */
+@XStreamAlias("xml")
 public class NotifyStatus extends PayStatus {    // 以下是接收支付通知时使用
+    @XStreamAlias("openid")
     private String openid;
+    @XStreamAlias("is_subscribe")
     private String isSubscribe; // 是否订阅
+    @XStreamAlias("bank_type")
     private String bankType;
+    @XStreamAlias("total_fee")
     private int totalFee;
+    @XStreamAlias("cash_fee")
     private int cashFee;
+    @XStreamAlias("transaction_id")
     private String transactionId;
+    @XStreamAlias("out_trade_no")
     private String outTradeNo;
+    @XStreamAlias("time_end")
     private String timeEnd;
+    @XStreamAlias("fee_type")
     private String feeType;
 
     public NotifyStatus(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign,

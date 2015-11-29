@@ -4,26 +4,43 @@
  */
 package net.yoomai.wechat.beans.payment;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * 申请退款的响应信息
  *
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)RefundResponse.java 1.0 28/11/2015
  */
+@XStreamAlias("xml")
 public class RefundResponse {
+    @XStreamAlias("return_code")
     private String returnCode;
+    @XStreamAlias("return_msg")
     private String returnMsg;
+    @XStreamAlias("result_code")
     private String resultCode;
+    @XStreamAlias("appid")
     private String appId;
+    @XStreamAlias("mch_id")
     private String mchId;
+    @XStreamAlias("nonce_str")
     private String nonceStr;
+    @XStreamAlias("sign")
     private String sign;
+    @XStreamAlias("transaction_id")
     private String transactionId;
+    @XStreamAlias("out_trade_no")
     private String outTradeNo;
+    @XStreamAlias("out_refund_no")
     private String outRefundNo;
+    @XStreamAlias("refund_id")
     private String refundId;
+    @XStreamAlias("refund_fee")
     private int refundFee;
+    @XStreamAlias("total_fee")
     private int totalFee;
+    @XStreamAlias("cash_fee")
     private int cashFee;
 
     public RefundResponse(String returnCode, String returnMsg, String resultCode, String appId, String mchId,

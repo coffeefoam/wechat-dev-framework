@@ -4,21 +4,33 @@
  */
 package net.yoomai.wechat.beans.payment;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * 支付状态，非异步通知结果
  *
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)PayStatus.java 1.0 28/11/2015
  */
+@XStreamAlias("xml")
 public class PayStatus {
+    @XStreamAlias("return_code")
     private String returnCode;
+    @XStreamAlias("return_msg")
     private String returnMsg;
+    @XStreamAlias("appid")
     private String appId;
+    @XStreamAlias("mch_id")
     private String mchId;
+    @XStreamAlias("nonce_str")
     private String nonceStr; //微信返回的随机字符串
+    @XStreamAlias("sign")
     private String sign; // 微信返回的签名
+    @XStreamAlias("result_code")
     private String resultCode; // SUCCESS/FAIL
+    @XStreamAlias("prepay_id")
     private String prepayId; // 微信生成的预支付回话标识，用于后续接口调用中使用，该值有效期为2小时
+    @XStreamAlias("trade_type")
     private String tradeType;
 
     public PayStatus(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign, String resultCode, String prepayId, String tradeType) {
