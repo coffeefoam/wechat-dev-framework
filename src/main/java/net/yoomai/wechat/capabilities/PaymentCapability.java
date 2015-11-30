@@ -19,10 +19,7 @@ import org.apache.http.conn.ssl.SSLContexts;
 import javax.net.ssl.SSLContext;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.*;
-import java.security.cert.CertificateException;
+import java.security.KeyStore;
 import java.util.HashMap;
 import java.util.Map;
 
