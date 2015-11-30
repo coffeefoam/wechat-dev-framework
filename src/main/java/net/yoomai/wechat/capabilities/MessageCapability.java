@@ -40,7 +40,7 @@ public class MessageCapability {
         String message = gson.toJson(cmessage);
 
         String url = _CUSTOMER_SEND_ + "?access_token=" + accessToken;
-        WebUtils.post(url, message, WechatConfig._DATA_JSON_, false);
+        WebUtils.post(url, message, WechatConfig._DATA_JSON_, false, null);
     }
 
     /**
@@ -52,7 +52,7 @@ public class MessageCapability {
         Gson gson = new Gson();
         String message = gson.toJson(templateMessage);
 
-        WebUtils.post(_TEMPLATE_SEND_, message, WechatConfig._DATA_JSON_, false);
+        WebUtils.post(_TEMPLATE_SEND_, message, WechatConfig._DATA_JSON_, false, null);
     }
 
     /**
