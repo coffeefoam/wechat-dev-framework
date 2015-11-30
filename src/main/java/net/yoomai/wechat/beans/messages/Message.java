@@ -4,6 +4,8 @@
  */
 package net.yoomai.wechat.beans.messages;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  * 消息基础模块
  *
@@ -11,7 +13,16 @@ package net.yoomai.wechat.beans.messages;
  * @(#)Message.java 1.0 28/11/2015
  */
 public class Message {
-    private String type;
+    @XStreamAlias("ToUserName")
+    private String toUserName;
+    @XStreamAlias("FromUserName")
+    private String fromUserName;
+    @XStreamAlias("CreateTime")
+    private long createTime;
+    @XStreamAlias("MsgType")
+    private String msgType;
+    @XStreamAlias("MsgId")
+    private long msgId;
 
     /**
      * 文本消息
@@ -58,11 +69,43 @@ public class Message {
      */
     public static final String EVENT = "event";
 
-    public String getType() {
-        return type;
+    public String getToUserName() {
+        return toUserName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setToUserName(String toUserName) {
+        this.toUserName = toUserName;
+    }
+
+    public String getFromUserName() {
+        return fromUserName;
+    }
+
+    public void setFromUserName(String fromUserName) {
+        this.fromUserName = fromUserName;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getMsgType() {
+        return msgType;
+    }
+
+    public void setMsgType(String msgType) {
+        this.msgType = msgType;
+    }
+
+    public long getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(long msgId) {
+        this.msgId = msgId;
     }
 }
