@@ -126,40 +126,21 @@ public class WebUtils {
      * @param cert
      * @return
      */
-    public static String post(String url, String obj, String type, boolean cert) {
+    public static String post(String url, String obj, String type, boolean cert, SSLContext sslContext) {
         String result = null;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         if (cert) {
-            // 初始化证书, 证书位置为classes目录
-            KeyStore keyStore = null;
-            FileInputStream inputStream = null;
-
             try {
-                keyStore = KeyStore.getInstance("PKCS12");
-                inputStream = new FileInputStream(new File(WechatConfig._WX_MCHID_PKCS_));
-                keyStore.load(inputStream, WechatConfig._WX_MCHID_.toCharArray());
-                // Trust own CA and all self-signed certs
-                SSLContext sslcontext = SSLContexts.custom()
-                        .loadKeyMaterial(keyStore, WechatConfig._WX_MCHID_.toCharArray())
-                        .build();
                 // Allow TLSv1 protocol only
                 SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-                        sslcontext,
+                        sslContext,
                         new String[] { "TLSv1" },
                         null,
                         SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
                 httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
             } catch (Exception e) {
                 log.error("初始化KeyStore错误 {}", e.getMessage());
-            } finally {
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        log.error("关闭文件流时发生错误 {}", e.getMessage());
-                    }
-                }
             }
         }
 
