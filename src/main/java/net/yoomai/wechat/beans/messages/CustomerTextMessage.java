@@ -7,6 +7,8 @@ package net.yoomai.wechat.beans.messages;
 import java.util.Map;
 
 /**
+ * 客服文本消息
+ *
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)CustomerTextMessage.java 1.0 28/11/2015
  */

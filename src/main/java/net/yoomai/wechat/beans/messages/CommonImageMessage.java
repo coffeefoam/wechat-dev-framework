@@ -5,6 +5,8 @@
 package net.yoomai.wechat.beans.messages;
 
 /**
+ * 普通的图片消息
+ *
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)ImageMessage.java 1.0 28/11/2015
  */
