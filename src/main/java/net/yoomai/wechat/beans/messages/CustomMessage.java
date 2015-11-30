@@ -5,13 +5,13 @@
 package net.yoomai.wechat.beans.messages;
 
 /**
- * 消息基础模块
+ * 客服消息
  *
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
- * @(#)Message.java 1.0 28/11/2015
+ * @(#)CustomerMessage.java 1.0 28/11/2015
  */
-public class Message {
-    private String type;
+public class CustomMessage {
+    private String msgtype;
 
     /**
      * 文本消息
@@ -34,35 +34,25 @@ public class Message {
     public static final String VIDEO = "video";
 
     /**
-     * 短视频消息
+     * 音乐消息
      */
-    public static final String SHORTVIDEO = "shortvideo";
+    public static final String MUSIC = "music";
 
     /**
-     * 位置消息
-     */
-    public static final String LOCATION = "location";
-
-    /**
-     * 链接消息
-     */
-    public static final String LINK = "link";
-
-    /**
-     * 图文消息
+     * 图文消息, 跳转到链接
      */
     public static final String NEWS = "news";
 
     /**
-     * 事件
+     * 图文消息, 跳转到图文消息页
      */
-    public static final String EVENT = "event";
+    public static final String MPNEWS = "mpnews";
 
-    public String getType() {
-        return type;
+    public String getMsgtype() {
+        return msgtype;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setMsgtype(String msgtype) {
+        this.msgtype = msgtype;
     }
 }

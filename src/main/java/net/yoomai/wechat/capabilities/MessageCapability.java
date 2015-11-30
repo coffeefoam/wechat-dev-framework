@@ -5,8 +5,10 @@
 package net.yoomai.wechat.capabilities;
 
 import com.google.gson.Gson;
-import net.yoomai.wechat.beans.messages.CustomerMessage;
+import net.yoomai.wechat.beans.messages.CustomMessage;
+import net.yoomai.wechat.beans.messages.Message;
 import net.yoomai.wechat.beans.messages.TemplateMessage;
+import net.yoomai.wechat.commands.Command;
 import net.yoomai.wechat.config.WechatConfig;
 import net.yoomai.wechat.utils.WebUtils;
 
@@ -33,11 +35,12 @@ public class MessageCapability {
      * @param customerMessage
      * @param accessToken
      */
-    public void sendCustomMessage(CustomerMessage customerMessage, String accessToken) {
+    public void sendCustomMessage(CustomMessage cmessage, String accessToken) {
         Gson gson = new Gson();
-        String message = gson.toJson(customerMessage);
+        String message = gson.toJson(cmessage);
 
-        WebUtils.post(_CUSTOMER_SEND_, message, WechatConfig._DATA_JSON_, false);
+        String url = _CUSTOMER_SEND_ + "?access_token=" + accessToken;
+        WebUtils.post(url, message, WechatConfig._DATA_JSON_, false);
     }
 
     /**
@@ -50,5 +53,15 @@ public class MessageCapability {
         String message = gson.toJson(templateMessage);
 
         WebUtils.post(_TEMPLATE_SEND_, message, WechatConfig._DATA_JSON_, false);
+    }
+
+    /**
+     * 接受消息
+     *
+     * @param message
+     * @param command
+     */
+    public void recieve(Message message, Command command) {
+
     }
 }

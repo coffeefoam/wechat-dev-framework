@@ -12,7 +12,7 @@ import java.util.Map;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)TemplateMessage.java 1.0 28/11/2015
  */
-public class TemplateMessage implements Message {
+public class TemplateMessage {
     private String touser;
     private String template_id;
     private String url;
