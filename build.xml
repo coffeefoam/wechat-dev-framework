@@ -16,6 +16,7 @@
 
 	<target name="clean" description="Clean output dir">
 		<delete dir="${target.compile.main.dir}" />
+		<delete dir="${target.dist}" />
 	</target>
 
 	<target name="compile" description="Compile main source tree java files.">
