@@ -8,7 +8,11 @@ import com.google.gson.Gson;
 import net.yoomai.wechat.beans.GlobalAccessToken;
 import net.yoomai.wechat.beans.JSApiTicket;
 import net.yoomai.wechat.config.WechatConfig;
+import net.yoomai.wechat.utils.StringUtils;
 import net.yoomai.wechat.utils.WebUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 提供微信访问的能力，获得accesstoken等一系列的参数
@@ -58,5 +62,24 @@ public class AccessCapability {
         }
 
         return jsApiTicket;
+    }
+
+    /**
+     * 针对jsapi，计算其所需要的加密串
+     *
+     * @param nonceStr
+     * @param timestamp
+     * @param url
+     * @param jsTicket
+     * @return
+     */
+    public String signature(String nonceStr, long timestamp, String url, String jsTicket) {
+        Map<String, String> params = new HashMap<>();
+        params.put("jsapi_ticket", jsTicket);
+        params.put("noncestr", nonceStr);
+        params.put("timestamp", String.valueOf(timestamp));
+        params.put("url", url);
+
+        return StringUtils.signature(params, "SHA-1", false);
     }
 }
