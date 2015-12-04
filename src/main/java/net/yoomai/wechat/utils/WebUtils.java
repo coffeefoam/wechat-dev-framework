@@ -23,7 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -147,7 +149,7 @@ public class WebUtils {
                 // Allow TLSv1 protocol only
                 SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
                         sslContext,
-                        new String[] { "TLSv1" },
+                        new String[]{"TLSv1"},
                         null,
                         SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
                 httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
@@ -189,4 +191,52 @@ public class WebUtils {
 
         return result;
     }
+
+    /**
+     * 设置客户端cookie
+     *
+     * @param response
+     * @param name
+     * @param value
+     * @param age
+     * @param path
+     * @param domain
+     */
+    public static void setCookie(HttpServletResponse response, String name,
+                                 String value, int age, String path, String domain) {
+        Cookie cookie = new Cookie(name, value);
+        if (age > 0) {
+            cookie.setMaxAge(age);
+        }
+        cookie.setPath(path);
+        if (domain != null) {
+            cookie.setDomain(domain);
+        }
+
+        response.addCookie(cookie);
+    }
+
+    /**
+     * 获取cookie信息
+     *
+     * @param name
+     * @param request
+     * @return
+     */
+    public static String getCookie(String name, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return "";
+        }
+        String cookieValue = "";
+        for (Cookie cookie : cookies) {
+            if (name.equals(cookie.getName())) {
+                cookieValue = cookie.getValue();
+                break;
+            }
+        }
+
+        return cookieValue;
+    }
+
 }
