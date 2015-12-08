@@ -33,6 +33,8 @@ public class NotifyStatus extends PayStatus {    // 以下是接收支付通知�
     @XStreamAlias("fee_type")
     private String feeType;
 
+    public NotifyStatus() {}
+
     public NotifyStatus(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign,
                         String resultCode, String prepayId, String tradeType, String openid, String isSubscribe,
                         String bankType, int totalFee, int cashFee, String transactionId, String outTradeNo,

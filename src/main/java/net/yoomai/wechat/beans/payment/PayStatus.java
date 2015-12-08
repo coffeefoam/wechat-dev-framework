@@ -33,6 +33,8 @@ public class PayStatus {
     @XStreamAlias("trade_type")
     private String tradeType;
 
+    public PayStatus() {}
+
     public PayStatus(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign, String resultCode, String prepayId, String tradeType) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;

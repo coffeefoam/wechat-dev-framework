@@ -24,7 +24,7 @@ public class PayParams {
     private String sign; // 签名
     @XStreamAlias("body")
     private String body; // 商品简单描述
-    @XStreamAlias("out_treade_no")
+    @XStreamAlias("out_trade_no")
     private String outTradeNo; // 系统订单号
     @XStreamAlias("total_fee")
     private int totalFee; // 订单总金额
@@ -32,10 +32,12 @@ public class PayParams {
     private String spbillCreateIp; // 客户端IP
     @XStreamAlias("notify_url")
     private String notifyURL; // 通知支付结果的地址
-    @XStreamAlias("trade_type")
-    private String tradeType; // JSAPI
     @XStreamAlias("openid")
     private String openId; // 用户标识
+    @XStreamAlias("trade_type")
+    private String tradeType; // JSAPI
+
+    public PayParams() {}
 
     public PayParams(String appId, String mchId, String nonceStr, String sign, String body,
                      String outTradeNo, int totalFee, String spbillCreateIp, String notifyURL,

@@ -25,6 +25,8 @@ public class OrderQueryParams {
     @XStreamAlias("sign")
     private String sign;
 
+    public OrderQueryParams() {}
+
     public OrderQueryParams(String appId, String mchId, String outTradeNo, String nonceStr, String sign) {
         this.appId = appId;
         this.mchId = mchId;

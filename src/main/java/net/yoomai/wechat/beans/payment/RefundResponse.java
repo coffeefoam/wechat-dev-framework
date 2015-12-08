@@ -43,6 +43,8 @@ public class RefundResponse {
     @XStreamAlias("cash_fee")
     private int cashFee;
 
+    public RefundResponse() {}
+
     public RefundResponse(String returnCode, String returnMsg, String resultCode, String appId, String mchId,
                           String nonceStr, String sign, String transactionId, String outTradeNo, String outRefundNo,
                           String refundId, int refundFee, int totalFee, int cashFee) {

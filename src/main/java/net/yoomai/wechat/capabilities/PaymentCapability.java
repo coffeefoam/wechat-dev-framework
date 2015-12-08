@@ -15,6 +15,8 @@ import net.yoomai.wechat.exceptions.PaymentException;
 import net.yoomai.wechat.utils.StringUtils;
 import net.yoomai.wechat.utils.WebUtils;
 import org.apache.http.conn.ssl.SSLContexts;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLContext;
 import java.io.File;
@@ -30,6 +32,8 @@ import java.util.Map;
  * @(#)PaymentCapability.java 1.0 27/11/2015
  */
 public class PaymentCapability {
+    private static final Logger log = LoggerFactory.getLogger(PaymentCapability.class);
+
     private AppConvert convert;
     private String mch_id;
     private String mch_key;
@@ -116,8 +120,10 @@ public class PaymentCapability {
         params.put("spbill_create_ip", ip);
         params.put("total_fee", String.valueOf(totalFee));
         params.put("trade_type", tradeType);
-        params.put("key", this.mch_key);
-        String sign = StringUtils.signature(params, "MD5", true);
+        String buffer = StringUtils.generateQueryString(params, true);
+        buffer += "&key=" + this.mch_key;
+
+        String sign = StringUtils.signature(buffer, "MD5", true);
 
         PayParams payParams = new PayParams(
                 WechatConfig._APP_ID_, this.mch_id, nonceStr, sign, body, outTradeNo, totalFee, ip,
@@ -125,6 +131,7 @@ public class PaymentCapability {
         );
 
         String params_xml_format = convert.reverse(payParams);
+        log.debug("提交的支付参数: {}", params_xml_format);
         String ret = WebUtils.post(_PREPAYMENT_URL_, params_xml_format, WechatConfig._DATA_XML_, false, null);
 
         PayStatus payStatus = convert.convert(ret, PayStatus.class);
@@ -141,15 +148,16 @@ public class PaymentCapability {
      * @return
      */
     public String paySign(String timestamp, String nonceStr, String prepayid, String signType) {
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("appId", WechatConfig._APP_ID_);
         params.put("nonceStr", nonceStr);
         params.put("package", "prepay_id=" + prepayid);
         params.put("signType", signType);
         params.put("timeStamp", timestamp);
-        params.put("key", WechatConfig._WX_MCH_KEY_);
+        String buffer = StringUtils.generateQueryString(params, true);
+        buffer += "&key=" + this.mch_key;
 
-        String sign = StringUtils.signature(params, "MD5", true);
+        String sign = StringUtils.signature(buffer, "MD5", true);
         return sign;
     }
 
@@ -189,8 +197,9 @@ public class PaymentCapability {
         params.put("mch_id", this.mch_id);
         params.put("out_trade_no", outTradeNo);
         params.put("nonce_str", nonceStr);
-        params.put("key", this.mch_key);
-        String sign = StringUtils.signature(params, "MD5", true);
+        String buffer = StringUtils.generateQueryString(params, true);
+        buffer += "&key=" + this.mch_key;
+        String sign = StringUtils.signature(buffer, "MD5", true);
 
         OrderQueryParams orderQueryParams = new OrderQueryParams(
                 WechatConfig._APP_ID_, this.mch_id, outTradeNo, nonceStr, sign
@@ -223,8 +232,9 @@ public class PaymentCapability {
         params.put("total_fee", String.valueOf(totalFee));
         params.put("refund_fee", String.valueOf(refundFee));
         params.put("op_user_id", opUserId);
-        params.put("key", this.mch_key);
-        String sign = StringUtils.signature(params, "MD5", true);
+        String buffer = StringUtils.generateQueryString(params, true);
+        buffer += "&key=" + this.mch_key;
+        String sign = StringUtils.signature(buffer, "MD5", true);
 
         RefundParams refundParams = new RefundParams(
                 WechatConfig._APP_ID_, this.mch_id, nonceStr, sign, outTradeNo, refundNo, totalFee,

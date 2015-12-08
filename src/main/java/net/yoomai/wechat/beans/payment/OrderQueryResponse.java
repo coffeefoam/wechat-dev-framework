@@ -49,6 +49,8 @@ public class OrderQueryResponse {
     @XStreamAlias("trade_state_desc")
     private String tradeStateDesc;
 
+    public OrderQueryResponse() {}
+
     public OrderQueryResponse(String returnCode, String returnMsg, String appId, String mchId, String nonceStr,
                               String sign, String resultCode, String openId, String tradeType, String tradeState,
                               String bankType, int totalFee, int cashFee, String transactionId, String outTradeNo,

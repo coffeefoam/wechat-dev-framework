@@ -19,6 +19,8 @@ public class PayResponse {
     @XStreamAlias("return_msg")
     private String returnMsg;
 
+    public PayResponse() {}
+
     public PayResponse(String returnCode, String returnMsg) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;

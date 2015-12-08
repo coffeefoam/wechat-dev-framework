@@ -80,6 +80,6 @@ public class AccessCapability {
         params.put("timestamp", String.valueOf(timestamp));
         params.put("url", url);
 
-        return StringUtils.signature(params, "SHA-1", false);
+        return StringUtils.signature(params, "SHA1", false);
     }
 }

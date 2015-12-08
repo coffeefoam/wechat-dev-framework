@@ -33,6 +33,8 @@ public class RefundParams {
     @XStreamAlias("op_user_id")
     private String opUserId;
 
+    public RefundParams() {}
+
     public RefundParams(String appId, String mchId, String nonceStr, String sign, String outTradeNo, String outRefundNo, int totalFee, int refundFee, String opUserId) {
         this.appId = appId;
         this.mchId = mchId;
