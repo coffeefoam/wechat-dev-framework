@@ -132,6 +132,28 @@ public class PaymentCapability {
     }
 
     /**
+     * 计算支付签名
+     *
+     * @param timestamp
+     * @param nonceStr
+     * @param prepayid
+     * @param signType
+     * @return
+     */
+    public String paySign(String timestamp, String nonceStr, String prepayid, String signType) {
+        Map<String, String> params = new HashMap<>();
+        params.put("appId", WechatConfig._APP_ID_);
+        params.put("nonceStr", nonceStr);
+        params.put("package", "prepay_id=" + prepayid);
+        params.put("signType", signType);
+        params.put("timeStamp", timestamp);
+        params.put("key", WechatConfig._WX_MCH_KEY_);
+
+        String sign = StringUtils.signature(params, "MD5", true);
+        return sign;
+    }
+
+    /**
      * 接收点对点支付状况的通知
      *
      * @param payMessage
