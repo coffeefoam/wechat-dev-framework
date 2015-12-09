@@ -5,6 +5,7 @@
 package net.yoomai.wechat.test;
 
 import net.yoomai.wechat.beans.messages.TextMessage;
+import net.yoomai.wechat.beans.payment.NotifyStatus;
 import net.yoomai.wechat.beans.payment.PayParams;
 import net.yoomai.wechat.beans.payment.PayStatus;
 import net.yoomai.wechat.config.WechatConfig;
@@ -83,5 +84,28 @@ public class XmlConvertTest {
                 " </xml>";
         TextMessage textMessage = XmlUtils.toBean(xml, TextMessage.class);
         System.out.println(textMessage.getMsgType());
+    }
+
+    @Test
+    public void testConvertNotifyStatus() {
+        String xml = " <xml><appid><![CDATA[wxd1c6bec576123e7b]]></appid>\n" +
+                "<bank_type><![CDATA[CFT]]></bank_type>\n" +
+                "<cash_fee><![CDATA[1]]></cash_fee>\n" +
+                "<fee_type><![CDATA[CNY]]></fee_type>\n" +
+                "<is_subscribe><![CDATA[Y]]></is_subscribe>\n" +
+                "<mch_id><![CDATA[1262208501]]></mch_id>\n" +
+                "<nonce_str><![CDATA[2YL8V6zQ]]></nonce_str>\n" +
+                "<openid><![CDATA[o_A4QuB6bRUZoYP82oC8pdmsvOJo]]></openid>\n" +
+                "<out_trade_no><![CDATA[28]]></out_trade_no>\n" +
+                "<result_code><![CDATA[SUCCESS]]></result_code>\n" +
+                "<return_code><![CDATA[SUCCESS]]></return_code>\n" +
+                "<sign><![CDATA[32C977A580C9E2DEE6D01E12D357994D]]></sign>\n" +
+                "<time_end><![CDATA[20151209121930]]></time_end>\n" +
+                "<total_fee>1</total_fee>\n" +
+                "<trade_type><![CDATA[JSAPI]]></trade_type>\n" +
+                "<transaction_id><![CDATA[1002200853201512091977269291]]></transaction_id>\n" +
+                "</xml>";
+        NotifyStatus notifyStatus = XmlUtils.toBean(xml, NotifyStatus.class);
+        System.out.println(notifyStatus.getTransactionId());
     }
 }

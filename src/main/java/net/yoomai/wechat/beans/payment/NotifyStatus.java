@@ -13,7 +13,25 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @(#)NotifyStatus.java 1.0 28/11/2015
  */
 @XStreamAlias("xml")
-public class NotifyStatus extends PayStatus {    // 以下是接收支付通知时使用
+public class NotifyStatus {    // 以下是接收支付通知时使用
+    @XStreamAlias("return_code")
+    private String returnCode;
+    @XStreamAlias("return_msg")
+    private String returnMsg;
+    @XStreamAlias("appid")
+    private String appId;
+    @XStreamAlias("mch_id")
+    private String mchId;
+    @XStreamAlias("nonce_str")
+    private String nonceStr; //微信返回的随机字符串
+    @XStreamAlias("sign")
+    private String sign; // 微信返回的签名
+    @XStreamAlias("result_code")
+    private String resultCode; // SUCCESS/FAIL
+    @XStreamAlias("prepay_id")
+    private String prepayId; // 微信生成的预支付回话标识，用于后续接口调用中使用，该值有效期为2小时
+    @XStreamAlias("trade_type")
+    private String tradeType;
     @XStreamAlias("openid")
     private String openid;
     @XStreamAlias("is_subscribe")
@@ -35,55 +53,147 @@ public class NotifyStatus extends PayStatus {    // 以下是接收支付通知�
 
     public NotifyStatus() {}
 
-    public NotifyStatus(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign,
-                        String resultCode, String prepayId, String tradeType, String openid, String isSubscribe,
-                        String bankType, int totalFee, int cashFee, String transactionId, String outTradeNo,
-                        String timeEnd, String feeType) {
-        super(returnCode, returnMsg, appId, mchId, nonceStr, sign, resultCode, prepayId, tradeType);
-        this.openid = openid;
-        this.isSubscribe = isSubscribe;
-        this.bankType = bankType;
-        this.totalFee = totalFee;
-        this.cashFee = cashFee;
-        this.transactionId = transactionId;
-        this.outTradeNo = outTradeNo;
-        this.timeEnd = timeEnd;
-        this.feeType = feeType;
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
+    }
+
+    public String getReturnMsg() {
+        return returnMsg;
+    }
+
+    public void setReturnMsg(String returnMsg) {
+        this.returnMsg = returnMsg;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getMchId() {
+        return mchId;
+    }
+
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
+    }
+
+    public String getNonceStr() {
+        return nonceStr;
+    }
+
+    public void setNonceStr(String nonceStr) {
+        this.nonceStr = nonceStr;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getResultCode() {
+        return resultCode;
+    }
+
+    public void setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+    }
+
+    public String getPrepayId() {
+        return prepayId;
+    }
+
+    public void setPrepayId(String prepayId) {
+        this.prepayId = prepayId;
+    }
+
+    public String getTradeType() {
+        return tradeType;
+    }
+
+    public void setTradeType(String tradeType) {
+        this.tradeType = tradeType;
     }
 
     public String getOpenid() {
         return openid;
     }
 
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
     public String getIsSubscribe() {
         return isSubscribe;
+    }
+
+    public void setIsSubscribe(String isSubscribe) {
+        this.isSubscribe = isSubscribe;
     }
 
     public String getBankType() {
         return bankType;
     }
 
+    public void setBankType(String bankType) {
+        this.bankType = bankType;
+    }
+
     public int getTotalFee() {
         return totalFee;
+    }
+
+    public void setTotalFee(int totalFee) {
+        this.totalFee = totalFee;
     }
 
     public int getCashFee() {
         return cashFee;
     }
 
+    public void setCashFee(int cashFee) {
+        this.cashFee = cashFee;
+    }
+
     public String getTransactionId() {
         return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
     public String getOutTradeNo() {
         return outTradeNo;
     }
 
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
+    }
+
     public String getTimeEnd() {
         return timeEnd;
     }
 
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
     public String getFeeType() {
         return feeType;
+    }
+
+    public void setFeeType(String feeType) {
+        this.feeType = feeType;
     }
 }

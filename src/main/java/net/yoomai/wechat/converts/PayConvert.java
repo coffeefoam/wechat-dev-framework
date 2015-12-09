@@ -7,6 +7,8 @@ package net.yoomai.wechat.converts;
 import net.yoomai.wechat.beans.payment.*;
 import net.yoomai.wechat.exceptions.ConvertException;
 import net.yoomai.wechat.utils.XmlUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 支付相关的参数与响应的串行化处理，格式为xml
@@ -15,6 +17,8 @@ import net.yoomai.wechat.utils.XmlUtils;
  * @(#)PayConvert.java 1.0 28/11/2015
  */
 public class PayConvert extends AppConvert {
+    private static final Logger log = LoggerFactory.getLogger(PayConvert.class);
+
     @SuppressWarnings("unchecked")
     @Override
     public <T> T convert(String xmlContent, Class<T> clazz) throws ConvertException {
@@ -31,6 +35,8 @@ public class PayConvert extends AppConvert {
             o = (T) convertOrderQueryResponse(xmlContent);
         } else if (o instanceof RefundResponse) {
             o = (T) convertRefundResponse(xmlContent);
+        } else if(o instanceof NotifyStatus) {
+            o = (T) convertNotifyStatus(xmlContent);
         } else {
             throw new ConvertException("格式化支付响应信息目前只支持点对点回调状态，订单查询响应以及退款操作的响应三种类型");
         }
@@ -92,6 +98,17 @@ public class PayConvert extends AppConvert {
      */
     private PayStatus convertPayStatus(String xmlContent) {
         return XmlUtils.toBean(xmlContent, PayStatus.class);
+    }
+
+    /**
+     * 格式化点对点状态
+     *
+     * @param xmlContent
+     * @return
+     */
+    private NotifyStatus convertNotifyStatus(String xmlContent) {
+        log.debug("点对点信息 {}", xmlContent);
+        return XmlUtils.toBean(xmlContent, NotifyStatus.class);
     }
 
     /**
