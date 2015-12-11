@@ -32,10 +32,15 @@ public class PayStatus {
     private String prepayId; // 微信生成的预支付回话标识，用于后续接口调用中使用，该值有效期为2小时
     @XStreamAlias("trade_type")
     private String tradeType;
+    @XStreamAlias("err_code")
+    private String errorCode;
+    @XStreamAlias("err_code_des")
+    private String errorCodeDesc;
 
     public PayStatus() {}
 
-    public PayStatus(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign, String resultCode, String prepayId, String tradeType) {
+    public PayStatus(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign,
+                     String resultCode, String prepayId, String tradeType, String errorCode, String errorCodeDesc) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
         this.appId = appId;
@@ -45,6 +50,8 @@ public class PayStatus {
         this.resultCode = resultCode;
         this.prepayId = prepayId;
         this.tradeType = tradeType;
+        this.errorCode = errorCode;
+        this.errorCodeDesc = errorCodeDesc;
     }
 
     public String getReturnCode() {
@@ -81,5 +88,13 @@ public class PayStatus {
 
     public String getTradeType() {
         return tradeType;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public String getErrorCodeDesc() {
+        return errorCodeDesc;
     }
 }
