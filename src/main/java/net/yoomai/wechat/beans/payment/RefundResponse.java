@@ -36,10 +36,14 @@ public class RefundResponse {
     private String outRefundNo;
     @XStreamAlias("refund_id")
     private String refundId;
+    @XStreamAlias("refund_channel")
+    private String refundChannel;
     @XStreamAlias("refund_fee")
     private int refundFee;
     @XStreamAlias("total_fee")
     private int totalFee;
+    @XStreamAlias("fee_type")
+    private String feeType;
     @XStreamAlias("cash_fee")
     private int cashFee;
 
@@ -47,7 +51,8 @@ public class RefundResponse {
 
     public RefundResponse(String returnCode, String returnMsg, String resultCode, String appId, String mchId,
                           String nonceStr, String sign, String transactionId, String outTradeNo, String outRefundNo,
-                          String refundId, int refundFee, int totalFee, int cashFee) {
+                          String refundId, String refundChannel, int refundFee, int totalFee, String feeType,
+                          int cashFee) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
         this.resultCode = resultCode;
@@ -59,8 +64,10 @@ public class RefundResponse {
         this.outTradeNo = outTradeNo;
         this.outRefundNo = outRefundNo;
         this.refundId = refundId;
+        this.refundChannel = refundChannel;
         this.refundFee = refundFee;
         this.totalFee = totalFee;
+        this.feeType = feeType;
         this.cashFee = cashFee;
     }
 
@@ -108,12 +115,20 @@ public class RefundResponse {
         return refundId;
     }
 
+    public String getRefundChannel() {
+        return refundChannel;
+    }
+
     public int getRefundFee() {
         return refundFee;
     }
 
     public int getTotalFee() {
         return totalFee;
+    }
+
+    public String getFeeType() {
+        return feeType;
     }
 
     public int getCashFee() {
