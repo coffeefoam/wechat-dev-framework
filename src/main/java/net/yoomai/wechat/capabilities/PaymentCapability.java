@@ -245,7 +245,7 @@ public class PaymentCapability {
         SSLContext sslContext = null;
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            FileInputStream inputStream = new FileInputStream(new File(this.mch_cert));
+            FileInputStream inputStream = new FileInputStream(new File(this.mch_cert + ".p12"));
             keyStore.load(inputStream, this.mch_id.toCharArray());
             // Trust own CA and all self-signed certs
             sslContext = SSLContexts.custom()
