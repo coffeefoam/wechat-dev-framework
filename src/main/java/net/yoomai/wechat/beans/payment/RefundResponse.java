@@ -46,13 +46,21 @@ public class RefundResponse {
     private String feeType;
     @XStreamAlias("cash_fee")
     private int cashFee;
+    @XStreamAlias("cash_refund_fee")
+    private int cashRefundFee;
+    @XStreamAlias("coupon_refund_fee")
+    private int couponRefundFee;
+    @XStreamAlias("coupon_refund_count")
+    private int couponRefundCount;
+    @XStreamAlias("coupon_refund_id")
+    private String couponRefundId;
 
     public RefundResponse() {}
 
     public RefundResponse(String returnCode, String returnMsg, String resultCode, String appId, String mchId,
                           String nonceStr, String sign, String transactionId, String outTradeNo, String outRefundNo,
                           String refundId, String refundChannel, int refundFee, int totalFee, String feeType,
-                          int cashFee) {
+                          int cashFee, int cashRefundFee, int couponRefundFee, int couponRefundCount, String couponRefundId) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
         this.resultCode = resultCode;
@@ -69,6 +77,10 @@ public class RefundResponse {
         this.totalFee = totalFee;
         this.feeType = feeType;
         this.cashFee = cashFee;
+        this.cashRefundFee = cashRefundFee;
+        this.couponRefundFee = couponRefundFee;
+        this.couponRefundCount = couponRefundCount;
+        this.couponRefundId = couponRefundId;
     }
 
     public String getReturnCode() {
@@ -133,5 +145,21 @@ public class RefundResponse {
 
     public int getCashFee() {
         return cashFee;
+    }
+
+    public int getCashRefundFee() {
+        return cashRefundFee;
+    }
+
+    public int getCouponRefundFee() {
+        return couponRefundFee;
+    }
+
+    public int getCouponRefundCount() {
+        return couponRefundCount;
+    }
+
+    public String getCouponRefundId() {
+        return couponRefundId;
     }
 }
