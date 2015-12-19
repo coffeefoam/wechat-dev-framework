@@ -40,15 +40,15 @@ public class OrderQueryResponse {
     private String bankType;
     @XStreamAlias("total_fee")
     private int totalFee;
-    @XStreamAlias("fee_type ")
+    @XStreamAlias("fee_type")
     private String feeType;
     @XStreamAlias("cash_fee")
     private int cashFee;
-    @XStreamAlias("cash_fee_type ")
+    @XStreamAlias("cash_fee_type")
     private String cashFeeType;
-    @XStreamAlias("coupon_fee ")
+    @XStreamAlias("coupon_fee")
     private int couponFee;
-    @XStreamAlias("coupon_count ")
+    @XStreamAlias("coupon_count")
     private int couponCount;
     @XStreamAlias("transaction_id")
     private String transactionId;
