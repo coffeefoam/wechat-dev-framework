@@ -30,6 +30,8 @@ public class OrderQueryResponse {
     private String resultCode;
     @XStreamAlias("openid")
     private String openId;
+    @XStreamAlias("is_subscribe")
+    private String isSubscribe;
     @XStreamAlias("trade_type")
     private String tradeType;
     @XStreamAlias("trade_state")
@@ -52,9 +54,9 @@ public class OrderQueryResponse {
     public OrderQueryResponse() {}
 
     public OrderQueryResponse(String returnCode, String returnMsg, String appId, String mchId, String nonceStr,
-                              String sign, String resultCode, String openId, String tradeType, String tradeState,
-                              String bankType, int totalFee, int cashFee, String transactionId, String outTradeNo,
-                              String timeEnd, String tradeStateDesc) {
+                              String sign, String resultCode, String openId, String isSubscribe, String tradeType,
+                              String tradeState, String bankType, int totalFee, int cashFee, String transactionId,
+                              String outTradeNo, String timeEnd, String tradeStateDesc) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
         this.appId = appId;
@@ -63,6 +65,7 @@ public class OrderQueryResponse {
         this.sign = sign;
         this.resultCode = resultCode;
         this.openId = openId;
+        this.isSubscribe = isSubscribe;
         this.tradeType = tradeType;
         this.tradeState = tradeState;
         this.bankType = bankType;
@@ -104,6 +107,10 @@ public class OrderQueryResponse {
 
     public String getOpenId() {
         return openId;
+    }
+
+    public String getIsSubscribe() {
+        return isSubscribe;
     }
 
     public String getTradeType() {
