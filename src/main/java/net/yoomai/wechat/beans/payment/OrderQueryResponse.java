@@ -40,12 +40,22 @@ public class OrderQueryResponse {
     private String bankType;
     @XStreamAlias("total_fee")
     private int totalFee;
+    @XStreamAlias("fee_type ")
+    private String feeType;
     @XStreamAlias("cash_fee")
     private int cashFee;
+    @XStreamAlias("cash_fee_type ")
+    private String cashFeeType;
+    @XStreamAlias("coupon_fee ")
+    private int couponFee;
+    @XStreamAlias("coupon_count ")
+    private int couponCount;
     @XStreamAlias("transaction_id")
     private String transactionId;
     @XStreamAlias("out_trade_no")
     private String outTradeNo;
+    @XStreamAlias("attach")
+    private String attach;
     @XStreamAlias("time_end")
     private String timeEnd;
     @XStreamAlias("trade_state_desc")
@@ -53,10 +63,7 @@ public class OrderQueryResponse {
 
     public OrderQueryResponse() {}
 
-    public OrderQueryResponse(String returnCode, String returnMsg, String appId, String mchId, String nonceStr,
-                              String sign, String resultCode, String openId, String isSubscribe, String tradeType,
-                              String tradeState, String bankType, int totalFee, int cashFee, String transactionId,
-                              String outTradeNo, String timeEnd, String tradeStateDesc) {
+    public OrderQueryResponse(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign, String resultCode, String openId, String isSubscribe, String tradeType, String tradeState, String bankType, int totalFee, String feeType, int cashFee, String cashFeeType, int couponFee, int couponCount, String transactionId, String outTradeNo, String attach, String timeEnd, String tradeStateDesc) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
         this.appId = appId;
@@ -70,9 +77,14 @@ public class OrderQueryResponse {
         this.tradeState = tradeState;
         this.bankType = bankType;
         this.totalFee = totalFee;
+        this.feeType = feeType;
         this.cashFee = cashFee;
+        this.cashFeeType = cashFeeType;
+        this.couponFee = couponFee;
+        this.couponCount = couponCount;
         this.transactionId = transactionId;
         this.outTradeNo = outTradeNo;
+        this.attach = attach;
         this.timeEnd = timeEnd;
         this.tradeStateDesc = tradeStateDesc;
     }
@@ -129,8 +141,24 @@ public class OrderQueryResponse {
         return totalFee;
     }
 
+    public String getFeeType() {
+        return feeType;
+    }
+
     public int getCashFee() {
         return cashFee;
+    }
+
+    public String getCashFeeType() {
+        return cashFeeType;
+    }
+
+    public int getCouponFee() {
+        return couponFee;
+    }
+
+    public int getCouponCount() {
+        return couponCount;
     }
 
     public String getTransactionId() {
@@ -139,6 +167,10 @@ public class OrderQueryResponse {
 
     public String getOutTradeNo() {
         return outTradeNo;
+    }
+
+    public String getAttach() {
+        return attach;
     }
 
     public String getTimeEnd() {
