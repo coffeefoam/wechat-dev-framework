@@ -54,13 +54,14 @@ public class RefundResponse {
     private int couponRefundCount;
     @XStreamAlias("coupon_refund_id")
     private String couponRefundId;
+    @XStreamAlias("err_code")
+    private String errorCode;
+    @XStreamAlias("err_code_des")
+    private String errorDesc;
 
     public RefundResponse() {}
 
-    public RefundResponse(String returnCode, String returnMsg, String resultCode, String appId, String mchId,
-                          String nonceStr, String sign, String transactionId, String outTradeNo, String outRefundNo,
-                          String refundId, String refundChannel, int refundFee, int totalFee, String feeType,
-                          int cashFee, int cashRefundFee, int couponRefundFee, int couponRefundCount, String couponRefundId) {
+    public RefundResponse(String returnCode, String returnMsg, String resultCode, String appId, String mchId, String nonceStr, String sign, String transactionId, String outTradeNo, String outRefundNo, String refundId, String refundChannel, int refundFee, int totalFee, String feeType, int cashFee, int cashRefundFee, int couponRefundFee, int couponRefundCount, String couponRefundId, String errorCode, String errorDesc) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
         this.resultCode = resultCode;
@@ -81,6 +82,8 @@ public class RefundResponse {
         this.couponRefundFee = couponRefundFee;
         this.couponRefundCount = couponRefundCount;
         this.couponRefundId = couponRefundId;
+        this.errorCode = errorCode;
+        this.errorDesc = errorDesc;
     }
 
     public String getReturnCode() {
@@ -161,5 +164,13 @@ public class RefundResponse {
 
     public String getCouponRefundId() {
         return couponRefundId;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public String getErrorDesc() {
+        return errorDesc;
     }
 }
