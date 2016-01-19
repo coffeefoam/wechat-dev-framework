@@ -60,7 +60,7 @@ public class OrderQueryResponse {
     private String timeEnd;
     @XStreamAlias("trade_state_desc")
     private String tradeStateDesc;
-    @XStreamAlias("error_code")
+    @XStreamAlias("err_code")
     private String errorCode;
 
     public OrderQueryResponse() {}
