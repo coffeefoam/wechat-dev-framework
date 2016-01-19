@@ -18,6 +18,8 @@ public class PaymentCapabilityTest {
     @Test
     public void testQuery() throws ConvertException, OrderQueryException {
         PaymentCapability paymentCapability = new PaymentCapability();
-        OrderQueryResponse orderQueryResponse = paymentCapability.orderQuery("201601191026041453170364412");
+        OrderQueryResponse orderQueryResponse = paymentCapability.orderQuery("201601181833261453113206850");
+
+        System.out.println(orderQueryResponse.getErrorCodeDesc());
     }
 }
