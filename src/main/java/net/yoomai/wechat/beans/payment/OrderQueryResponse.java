@@ -62,10 +62,12 @@ public class OrderQueryResponse {
     private String tradeStateDesc;
     @XStreamAlias("err_code")
     private String errorCode;
+    @XStreamAlias("err_code_des")
+    private String errorCodeDesc;
 
     public OrderQueryResponse() {}
 
-    public OrderQueryResponse(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign, String resultCode, String openId, String isSubscribe, String tradeType, String tradeState, String bankType, int totalFee, String feeType, int cashFee, String cashFeeType, int couponFee, int couponCount, String transactionId, String outTradeNo, String attach, String timeEnd, String tradeStateDesc, String errorCode) {
+    public OrderQueryResponse(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign, String resultCode, String openId, String isSubscribe, String tradeType, String tradeState, String bankType, int totalFee, String feeType, int cashFee, String cashFeeType, int couponFee, int couponCount, String transactionId, String outTradeNo, String attach, String timeEnd, String tradeStateDesc, String errorCode, String errorCodeDesc) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
         this.appId = appId;
@@ -90,6 +92,7 @@ public class OrderQueryResponse {
         this.timeEnd = timeEnd;
         this.tradeStateDesc = tradeStateDesc;
         this.errorCode = errorCode;
+        this.errorCodeDesc = errorCodeDesc;
     }
 
     public String getReturnCode() {
@@ -186,5 +189,9 @@ public class OrderQueryResponse {
 
     public String getErrorCode() {
         return errorCode;
+    }
+
+    public String getErrorCodeDesc() {
+        return errorCodeDesc;
     }
 }
