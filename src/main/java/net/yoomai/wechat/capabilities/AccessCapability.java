@@ -20,10 +20,14 @@ import java.util.Map;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)AccessCapability.java 1.0 27/11/2015
  */
-public class AccessCapability {
+public class AccessCapability extends AbstractCapability {
     private static final String _ACCESS_TOKEN_URL_ = "https://api.weixin.qq.com/cgi-bin/token";
 
     private static final String _JSAPI_TICKET_URL_ = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
+
+    public AccessCapability(String id) {
+        init(id);
+    }
 
     /**
      * 获得具有中控访问能力的access令牌
@@ -31,8 +35,8 @@ public class AccessCapability {
      * @return
      */
     public GlobalAccessToken getAccessToken() {
-        String url = _ACCESS_TOKEN_URL_ + "?grant_type=client_credential&appid=" + WechatConfig._APP_ID_ + "&secret="
-                + WechatConfig._APP_SECRET_;
+        String url = _ACCESS_TOKEN_URL_ + "?grant_type=client_credential&appid=" + this.appid + "&secret="
+                + this.appSecret;
         String accessToken = WebUtils.get(url);
         GlobalAccessToken globalAccessToken = null;
 

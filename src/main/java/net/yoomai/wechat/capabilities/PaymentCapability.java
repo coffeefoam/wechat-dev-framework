@@ -31,15 +31,10 @@ import java.util.Map;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)PaymentCapability.java 1.0 27/11/2015
  */
-public class PaymentCapability {
+public class PaymentCapability extends AbstractCapability {
     private static final Logger log = LoggerFactory.getLogger(PaymentCapability.class);
 
     private AppConvert convert;
-    private String mch_id;
-    private String mch_key;
-    private String mch_cert;
-    private String pay_notify_url;
-
     /**
      * 预付订单下单地址
      */
@@ -58,12 +53,9 @@ public class PaymentCapability {
     /**
      * 默认的转换模块是payconvert
      */
-    public PaymentCapability() {
+    public PaymentCapability(String id) {
         this.convert = new PayConvert();
-        this.mch_id = WechatConfig._WX_MCHID_;
-        this.mch_key = WechatConfig._WX_MCH_KEY_;
-        this.mch_cert = WechatConfig._WX_MCHID_PKCS_;
-        this.pay_notify_url = WechatConfig._PAY_NOTIFY_URL_;
+        init(id);
     }
 
     /**
@@ -71,27 +63,9 @@ public class PaymentCapability {
      *
      * @param convert
      */
-    public PaymentCapability(AppConvert convert) {
+    public PaymentCapability(AppConvert convert, String id) {
         this.convert = convert;
-        this.mch_id = WechatConfig._WX_MCHID_;
-        this.mch_key = WechatConfig._WX_MCH_KEY_;
-        this.mch_cert = WechatConfig._WX_MCHID_PKCS_;
-        this.pay_notify_url = WechatConfig._PAY_NOTIFY_URL_;
-    }
-
-    /**
-     * 初始化支付所需相关参数，如果不调用，则用默认的参数
-     *
-     * @param mch_id
-     * @param mch_key
-     * @param mch_cert
-     * @param pay_notify_url
-     */
-    public void init(String mch_id, String mch_key, String mch_cert, String pay_notify_url) {
-        this.mch_id = mch_id;
-        this.mch_key = mch_key;
-        this.mch_cert = mch_cert;
-        this.pay_notify_url = pay_notify_url;
+        init(id);
     }
 
     /**
@@ -110,24 +84,24 @@ public class PaymentCapability {
         String nonceStr = StringUtils.randomString(8);
         // 此处写的好不优雅，有时间的话调整一下吧，OMG
         Map<String, Object> params = new HashMap<>();
-        params.put("appid",WechatConfig._APP_ID_);
+        params.put("appid", this.appid);
         params.put("body", body);
-        params.put("mch_id", this.mch_id);
+        params.put("mch_id", this.mchid);
         params.put("nonce_str", nonceStr);
-        params.put("notify_url", this.pay_notify_url);
+        params.put("notify_url", this.nofityURL);
         params.put("openid", openId);
         params.put("out_trade_no", outTradeNo);
         params.put("spbill_create_ip", ip);
         params.put("total_fee", String.valueOf(totalFee));
         params.put("trade_type", tradeType);
         String buffer = StringUtils.generateQueryString(params, true);
-        buffer += "&key=" + this.mch_key;
+        buffer += "&key=" + this.mchKey;
 
         String sign = StringUtils.signature(buffer, "MD5", true);
 
         PayParams payParams = new PayParams(
-                WechatConfig._APP_ID_, this.mch_id, nonceStr, sign, body, outTradeNo, totalFee, ip,
-                this.pay_notify_url, tradeType, openId
+                this.appid, this.mchid, nonceStr, sign, body, outTradeNo, totalFee, ip,
+                this.nofityURL, tradeType, openId
         );
 
         String params_xml_format = convert.reverse(payParams);
@@ -149,13 +123,13 @@ public class PaymentCapability {
      */
     public String paySign(String timestamp, String nonceStr, String prepayid, String signType) {
         Map<String, Object> params = new HashMap<>();
-        params.put("appId", WechatConfig._APP_ID_);
+        params.put("appId", this.appid);
         params.put("nonceStr", nonceStr);
         params.put("package", "prepay_id=" + prepayid);
         params.put("signType", signType);
         params.put("timeStamp", timestamp);
         String buffer = StringUtils.generateQueryString(params, true);
-        buffer += "&key=" + this.mch_key;
+        buffer += "&key=" + this.mchKey;
 
         String sign = StringUtils.signature(buffer, "MD5", true);
         return sign;
@@ -193,16 +167,16 @@ public class PaymentCapability {
         String nonceStr = StringUtils.randomString(8);
         // 及其不优雅的代码又一次出现
         Map<String, Object> params = new HashMap<>();
-        params.put("appid", WechatConfig._APP_ID_);
-        params.put("mch_id", this.mch_id);
+        params.put("appid", this.appid);
+        params.put("mch_id", this.mchid);
         params.put("out_trade_no", outTradeNo);
         params.put("nonce_str", nonceStr);
         String buffer = StringUtils.generateQueryString(params, true);
-        buffer += "&key=" + this.mch_key;
+        buffer += "&key=" + this.mchKey;
         String sign = StringUtils.signature(buffer, "MD5", true);
 
         OrderQueryParams orderQueryParams = new OrderQueryParams(
-                WechatConfig._APP_ID_, this.mch_id, outTradeNo, nonceStr, sign
+                this.appid, this.mchid, outTradeNo, nonceStr, sign
         );
         String params_xml_format = convert.reverse(orderQueryParams);
         String ret = WebUtils.post(_ORDER_QUERY_URL_, params_xml_format, WechatConfig._DATA_XML_, false, null);
@@ -224,8 +198,8 @@ public class PaymentCapability {
             throws ConvertException, PaymentException {
         String nonceStr = StringUtils.randomString(8);
         Map<String, Object> params = new HashMap<>();
-        params.put("appid", WechatConfig._APP_ID_);
-        params.put("mch_id", this.mch_id);
+        params.put("appid", this.appid);
+        params.put("mch_id", this.mchid);
         params.put("nonce_str", nonceStr);
         params.put("out_trade_no", outTradeNo);
         params.put("out_refund_no", refundNo);
@@ -233,11 +207,11 @@ public class PaymentCapability {
         params.put("refund_fee", String.valueOf(refundFee));
         params.put("op_user_id", opUserId);
         String buffer = StringUtils.generateQueryString(params, true);
-        buffer += "&key=" + this.mch_key;
+        buffer += "&key=" + this.mchKey;
         String sign = StringUtils.signature(buffer, "MD5", true);
 
         RefundParams refundParams = new RefundParams(
-                WechatConfig._APP_ID_, this.mch_id, nonceStr, sign, outTradeNo, refundNo, totalFee,
+                this.appid, this.mchid, nonceStr, sign, outTradeNo, refundNo, totalFee,
                 refundFee, opUserId
         );
         String params_xml_form = convert.reverse(refundParams);
@@ -245,11 +219,11 @@ public class PaymentCapability {
         SSLContext sslContext = null;
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            FileInputStream inputStream = new FileInputStream(new File(this.mch_cert));
-            keyStore.load(inputStream, this.mch_id.toCharArray());
+            FileInputStream inputStream = new FileInputStream(new File(this.mchPKCs));
+            keyStore.load(inputStream, this.mchid.toCharArray());
             // Trust own CA and all self-signed certs
             sslContext = SSLContexts.custom()
-                    .loadKeyMaterial(keyStore, this.mch_id.toCharArray())
+                    .loadKeyMaterial(keyStore, this.mchid.toCharArray())
                     .build();
         } catch (Exception e) {
             throw new PaymentException("在进行退款时发生了证书初始化错误.", e);

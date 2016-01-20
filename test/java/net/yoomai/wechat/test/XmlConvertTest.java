@@ -28,28 +28,28 @@ public class XmlConvertTest {
     public void testReversePayParams() throws ConvertException {
         String nonceStr = StringUtils.randomString(8);
         // 此处写的好不优雅，有时间的话调整一下吧，OMG
-        Map<String, Object> params = new HashMap<>();
-        params.put("appid",WechatConfig._APP_ID_);
-        params.put("body", "测试");
-        params.put("mch_id", WechatConfig._WX_MCHID_);
-        params.put("nonce_str", nonceStr);
-        params.put("notify_url", WechatConfig._PAY_NOTIFY_URL_);
-        params.put("openid", "123456789");
-        params.put("out_trade_no", "01234567");
-        params.put("spbill_create_ip", "127.0.0.1");
-        params.put("total_fee", String.valueOf(1));
-        params.put("trade_type", "JSAPI");
-        params.put("key", WechatConfig._WX_MCH_KEY_);
-        String sign = StringUtils.signature(params, "MD5", true);
-
-        PayParams payParams = new PayParams(
-                WechatConfig._APP_ID_, WechatConfig._WX_MCHID_, nonceStr, sign, "测试", "01234567", 1, "127.0.0.1",
-                WechatConfig._PAY_NOTIFY_URL_, "JSAPI", "123456789"
-        );
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("appid",WechatConfig._APP_ID_);
+//        params.put("body", "测试");
+//        params.put("mch_id", WechatConfig._WX_MCHID_);
+//        params.put("nonce_str", nonceStr);
+//        params.put("notify_url", WechatConfig._PAY_NOTIFY_URL_);
+//        params.put("openid", "123456789");
+//        params.put("out_trade_no", "01234567");
+//        params.put("spbill_create_ip", "127.0.0.1");
+//        params.put("total_fee", String.valueOf(1));
+//        params.put("trade_type", "JSAPI");
+//        params.put("key", WechatConfig._WX_MCH_KEY_);
+//        String sign = StringUtils.signature(params, "MD5", true);
+//
+//        PayParams payParams = new PayParams(
+//                WechatConfig._APP_ID_, WechatConfig._WX_MCHID_, nonceStr, sign, "测试", "01234567", 1, "127.0.0.1",
+//                WechatConfig._PAY_NOTIFY_URL_, "JSAPI", "123456789"
+//        );
 
         AppConvert convert = new PayConvert();
-        String xmlContent = convert.reverse(payParams);
-        System.out.println(xmlContent);
+//        String xmlContent = convert.reverse(payParams);
+//        System.out.println(xmlContent);
     }
 
     @Test

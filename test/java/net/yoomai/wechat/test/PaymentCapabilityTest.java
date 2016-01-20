@@ -17,7 +17,7 @@ import org.junit.Test;
 public class PaymentCapabilityTest {
     @Test
     public void testQuery() throws ConvertException, OrderQueryException {
-        PaymentCapability paymentCapability = new PaymentCapability();
+        PaymentCapability paymentCapability = new PaymentCapability("test");
         OrderQueryResponse orderQueryResponse = paymentCapability.orderQuery("201601181833261453113206850");
 
         System.out.println(orderQueryResponse.getErrorCodeDesc());

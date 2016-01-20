@@ -22,7 +22,7 @@ import java.util.Map;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)AuthCapability.java 1.0 27/11/2015
  */
-public class AuthCapability {
+public class AuthCapability extends AbstractCapability {
     /**
      * 用户授权地址
      */
@@ -38,6 +38,10 @@ public class AuthCapability {
      */
     private static final String _USER_INFO_URL_ = "http://api.weixin.qq.com/sns/userinfo";
 
+    public AuthCapability(String id) {
+        init(id);
+    }
+
     /**
      * 获得用户认证的地址
      *
@@ -47,7 +51,7 @@ public class AuthCapability {
     public String getOAuthURL(String redirectURL) throws UnsupportedEncodingException {
         Map<String, Object> parameters = new HashMap<>();
 
-        parameters.put("appid", WechatConfig._APP_ID_);
+        parameters.put("appid", this.appid);
         parameters.put("redirect_uri", URLEncoder.encode(redirectURL, "utf-8"));
         parameters.put("response_type", "code");
         parameters.put("scope", "snsapi_userinfo");
@@ -64,8 +68,8 @@ public class AuthCapability {
      */
     public AccessToken getAccessToken(String code) {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("appid", WechatConfig._APP_ID_);
-        parameters.put("secret", WechatConfig._APP_SECRET_);
+        parameters.put("appid", this.appid);
+        parameters.put("secret", this.appSecret);
         parameters.put("code", code);
         parameters.put("grant_type", "authorization_code");
 

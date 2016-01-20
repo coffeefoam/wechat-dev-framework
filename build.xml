@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="wechat-dev" basedir=".">
 	<property name="proj.name" value="${ant.project.name}" />
-	<property name="proj.version" value="1.1" />
+	<property name="proj.version" value="1.2" />
 
 	<property name="lib.dir" value="libs" />
 	<property name="src.main.dir" value="src/main/java" />
