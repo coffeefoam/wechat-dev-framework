@@ -7,7 +7,6 @@ package net.yoomai.wechat.capabilities;
 import com.google.gson.Gson;
 import net.yoomai.wechat.beans.GlobalAccessToken;
 import net.yoomai.wechat.beans.JSApiTicket;
-import net.yoomai.wechat.config.WechatConfig;
 import net.yoomai.wechat.utils.StringUtils;
 import net.yoomai.wechat.utils.WebUtils;
 
