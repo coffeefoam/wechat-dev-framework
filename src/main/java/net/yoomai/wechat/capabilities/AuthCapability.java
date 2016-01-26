@@ -13,6 +13,7 @@ import net.yoomai.wechat.utils.WebUtils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -47,11 +48,14 @@ public class AuthCapability extends AbstractCapability {
      * @param redirectURL
      * @return
      */
-    public String getOAuthURL(String redirectURL) throws UnsupportedEncodingException {
-        Map<String, Object> parameters = new HashMap<>();
+    public String getOAuthURL(String redirect, String referer) throws UnsupportedEncodingException {
+        Map<String, Object> parameters = new LinkedHashMap<>();
 
         parameters.put("appid", this.appid);
-        parameters.put("redirect_uri", URLEncoder.encode(redirectURL, "utf-8"));
+        if (referer != null && !"".equals(referer.trim())) {
+            redirect = redirect + "?referer=" + referer;
+        }
+        parameters.put("redirect_uri", URLEncoder.encode(redirect, "utf-8"));
         parameters.put("response_type", "code");
         parameters.put("scope", "snsapi_userinfo");
         parameters.put("state", StringUtils.randomString(8));
