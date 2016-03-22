@@ -11,3 +11,11 @@ wechat-dev-framework.iml
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+out/test/wechat-dev-framework/test.properties
+
+out/test/wechat-dev-framework/resources/test.properties
+
+dist/wechat-dev-1.2.jar
+
+libs/servlet-api.jar
