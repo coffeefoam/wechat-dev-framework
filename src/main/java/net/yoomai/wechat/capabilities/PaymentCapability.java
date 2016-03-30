@@ -53,9 +53,8 @@ public class PaymentCapability extends AbstractCapability {
     /**
      * 默认的转换模块是payconvert
      */
-    public PaymentCapability(String id) {
+    public PaymentCapability() {
         this.convert = new PayConvert();
-        init(id);
     }
 
     /**
@@ -63,9 +62,8 @@ public class PaymentCapability extends AbstractCapability {
      *
      * @param convert
      */
-    public PaymentCapability(AppConvert convert, String id) {
+    public PaymentCapability(AppConvert convert) {
         this.convert = convert;
-        init(id);
     }
 
     /**
@@ -84,24 +82,24 @@ public class PaymentCapability extends AbstractCapability {
         String nonceStr = StringUtils.randomString(8);
         // 此处写的好不优雅，有时间的话调整一下吧，OMG
         Map<String, Object> params = new HashMap<>();
-        params.put("appid", this.appid);
+        params.put("appid", wxConfig.getAppid());
         params.put("body", body);
-        params.put("mch_id", this.mchid);
+        params.put("mch_id", wxConfig.getMchid());
         params.put("nonce_str", nonceStr);
-        params.put("notify_url", this.nofityURL);
+        params.put("notify_url", wxConfig.getNofityURL());
         params.put("openid", openId);
         params.put("out_trade_no", outTradeNo);
         params.put("spbill_create_ip", ip);
         params.put("total_fee", String.valueOf(totalFee));
         params.put("trade_type", tradeType);
         String buffer = StringUtils.generateQueryString(params, true);
-        buffer += "&key=" + this.mchKey;
+        buffer += "&key=" + wxConfig.getMchKey();
 
         String sign = StringUtils.signature(buffer, "MD5", true);
 
         PayParams payParams = new PayParams(
-                this.appid, this.mchid, nonceStr, sign, body, outTradeNo, totalFee, ip,
-                this.nofityURL, tradeType, openId
+                wxConfig.getAppid(), wxConfig.getMchid(), nonceStr, sign, body, outTradeNo, totalFee, ip,
+                wxConfig.getNofityURL(), tradeType, openId
         );
 
         String params_xml_format = convert.reverse(payParams);
@@ -123,13 +121,13 @@ public class PaymentCapability extends AbstractCapability {
      */
     public String paySign(String timestamp, String nonceStr, String prepayid, String signType) {
         Map<String, Object> params = new HashMap<>();
-        params.put("appId", this.appid);
+        params.put("appId", wxConfig.getAppid());
         params.put("nonceStr", nonceStr);
         params.put("package", "prepay_id=" + prepayid);
         params.put("signType", signType);
         params.put("timeStamp", timestamp);
         String buffer = StringUtils.generateQueryString(params, true);
-        buffer += "&key=" + this.mchKey;
+        buffer += "&key=" + wxConfig.getMchKey();
 
         String sign = StringUtils.signature(buffer, "MD5", true);
         return sign;
@@ -167,16 +165,16 @@ public class PaymentCapability extends AbstractCapability {
         String nonceStr = StringUtils.randomString(8);
         // 及其不优雅的代码又一次出现
         Map<String, Object> params = new HashMap<>();
-        params.put("appid", this.appid);
-        params.put("mch_id", this.mchid);
+        params.put("appid", wxConfig.getAppid());
+        params.put("mch_id", wxConfig.getMchid());
         params.put("out_trade_no", outTradeNo);
         params.put("nonce_str", nonceStr);
         String buffer = StringUtils.generateQueryString(params, true);
-        buffer += "&key=" + this.mchKey;
+        buffer += "&key=" + wxConfig.getMchKey();
         String sign = StringUtils.signature(buffer, "MD5", true);
 
         OrderQueryParams orderQueryParams = new OrderQueryParams(
-                this.appid, this.mchid, outTradeNo, nonceStr, sign
+                wxConfig.getAppid(), wxConfig.getMchid(), outTradeNo, nonceStr, sign
         );
         String params_xml_format = convert.reverse(orderQueryParams);
         String ret = WebUtils.post(_ORDER_QUERY_URL_, params_xml_format, WechatConfig._DATA_XML_, false, null);
@@ -198,8 +196,8 @@ public class PaymentCapability extends AbstractCapability {
             throws ConvertException, PaymentException {
         String nonceStr = StringUtils.randomString(8);
         Map<String, Object> params = new HashMap<>();
-        params.put("appid", this.appid);
-        params.put("mch_id", this.mchid);
+        params.put("appid", wxConfig.getAppid());
+        params.put("mch_id", wxConfig.getMchid());
         params.put("nonce_str", nonceStr);
         params.put("out_trade_no", outTradeNo);
         params.put("out_refund_no", refundNo);
@@ -207,11 +205,11 @@ public class PaymentCapability extends AbstractCapability {
         params.put("refund_fee", String.valueOf(refundFee));
         params.put("op_user_id", opUserId);
         String buffer = StringUtils.generateQueryString(params, true);
-        buffer += "&key=" + this.mchKey;
+        buffer += "&key=" + wxConfig.getMchKey();
         String sign = StringUtils.signature(buffer, "MD5", true);
 
         RefundParams refundParams = new RefundParams(
-                this.appid, this.mchid, nonceStr, sign, outTradeNo, refundNo, totalFee,
+                wxConfig.getAppid(), wxConfig.getMchid(), nonceStr, sign, outTradeNo, refundNo, totalFee,
                 refundFee, opUserId
         );
         String params_xml_form = convert.reverse(refundParams);
@@ -219,11 +217,11 @@ public class PaymentCapability extends AbstractCapability {
         SSLContext sslContext = null;
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            FileInputStream inputStream = new FileInputStream(new File(this.mchPKCs));
-            keyStore.load(inputStream, this.mchid.toCharArray());
+            FileInputStream inputStream = new FileInputStream(new File(wxConfig.getMchPKCs()));
+            keyStore.load(inputStream, wxConfig.getMchid().toCharArray());
             // Trust own CA and all self-signed certs
             sslContext = SSLContexts.custom()
-                    .loadKeyMaterial(keyStore, this.mchid.toCharArray())
+                    .loadKeyMaterial(keyStore, wxConfig.getMchid().toCharArray())
                     .build();
         } catch (Exception e) {
             throw new PaymentException("在进行退款时发生了证书初始化错误.", e);

@@ -12,7 +12,6 @@ package net.yoomai.wechat.capabilities;
  */
 public class CustomerCapability extends AbstractCapability {
 
-    public CustomerCapability(String id) {
-        init(id);
+    public CustomerCapability() {
     }
 }

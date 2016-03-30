@@ -24,8 +24,7 @@ public class AccessCapability extends AbstractCapability {
 
     private static final String _JSAPI_TICKET_URL_ = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
 
-    public AccessCapability(String id) {
-        init(id);
+    public AccessCapability() {
     }
 
     /**
@@ -34,8 +33,8 @@ public class AccessCapability extends AbstractCapability {
      * @return
      */
     public GlobalAccessToken getAccessToken() {
-        String url = _ACCESS_TOKEN_URL_ + "?grant_type=client_credential&appid=" + this.appid + "&secret="
-                + this.appSecret;
+        String url = _ACCESS_TOKEN_URL_ + "?grant_type=client_credential&appid=" + wxConfig.getAppid() + "&secret="
+                + wxConfig.getAppSecret();
         String accessToken = WebUtils.get(url);
         GlobalAccessToken globalAccessToken = null;
 

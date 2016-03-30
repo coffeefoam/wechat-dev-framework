@@ -38,8 +38,7 @@ public class AuthCapability extends AbstractCapability {
      */
     private static final String _USER_INFO_URL_ = "http://api.weixin.qq.com/sns/userinfo";
 
-    public AuthCapability(String id) {
-        init(id);
+    public AuthCapability() {
     }
 
     /**
@@ -51,7 +50,7 @@ public class AuthCapability extends AbstractCapability {
     public String getOAuthURL(String redirect, String referer) throws UnsupportedEncodingException {
         Map<String, Object> parameters = new LinkedHashMap<>();
 
-        parameters.put("appid", this.appid);
+        parameters.put("appid", wxConfig.getAppid());
         if (referer != null && !"".equals(referer.trim())) {
             redirect = redirect + "?referer=" + referer;
         }
@@ -71,8 +70,8 @@ public class AuthCapability extends AbstractCapability {
      */
     public AccessToken getAccessToken(String code) {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("appid", this.appid);
-        parameters.put("secret", this.appSecret);
+        parameters.put("appid", wxConfig.getAppid());
+        parameters.put("secret", wxConfig.getAppSecret());
         parameters.put("code", code);
         parameters.put("grant_type", "authorization_code");
 
