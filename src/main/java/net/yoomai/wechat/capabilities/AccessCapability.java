@@ -24,9 +24,6 @@ public class AccessCapability extends AbstractCapability {
 
     private static final String _JSAPI_TICKET_URL_ = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
 
-    public AccessCapability() {
-    }
-
     /**
      * 获得具有中控访问能力的access令牌
      *

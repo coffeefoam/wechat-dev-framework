@@ -38,9 +38,6 @@ public class AuthCapability extends AbstractCapability {
      */
     private static final String _USER_INFO_URL_ = "http://api.weixin.qq.com/sns/userinfo";
 
-    public AuthCapability() {
-    }
-
     /**
      * 获得用户认证的地址
      *
