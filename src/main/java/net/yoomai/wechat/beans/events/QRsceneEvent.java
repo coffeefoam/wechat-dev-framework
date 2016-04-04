@@ -7,13 +7,13 @@ package net.yoomai.wechat.beans.events;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
- * 订阅或取消订阅的事件信息
+ * 扫描带参数二维码事件
  *
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
- * @(#)SubscribeEVent.java 1.0 04/04/2016
+ * @(#)QRsceneEvent.java 1.0 04/04/2016
  */
 @XStreamAlias("xml")
-public class SubscribeEvent {
+public class QRsceneEvent {
     @XStreamAlias("ToUserName")
     private String toUserName;
     @XStreamAlias("FromUserName")
@@ -24,16 +24,22 @@ public class SubscribeEvent {
     private String msgType;
     @XStreamAlias("Event")
     private String event;
+    @XStreamAlias("EventKey")
+    private String eventKey;
+    @XStreamAlias("Ticket")
+    private String ticket;
 
-    public SubscribeEvent() {
+    public QRsceneEvent() {
     }
 
-    public SubscribeEvent(String toUserName, String fromUserName, long createTime, String msgType, String event) {
+    public QRsceneEvent(String toUserName, String fromUserName, long createTime, String msgType, String event, String eventKey, String ticket) {
         this.toUserName = toUserName;
         this.fromUserName = fromUserName;
         this.createTime = createTime;
         this.msgType = msgType;
         this.event = event;
+        this.eventKey = eventKey;
+        this.ticket = ticket;
     }
 
     public String getToUserName() {
@@ -54,5 +60,13 @@ public class SubscribeEvent {
 
     public String getEvent() {
         return event;
+    }
+
+    public String getEventKey() {
+        return eventKey;
+    }
+
+    public String getTicket() {
+        return ticket;
     }
 }
