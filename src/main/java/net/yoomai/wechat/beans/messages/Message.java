@@ -7,7 +7,7 @@ package net.yoomai.wechat.beans.messages;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
- * 消息基础模块
+ * 消息信息
  *
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)Message.java 1.0 28/11/2015
