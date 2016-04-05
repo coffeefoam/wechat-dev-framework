@@ -22,6 +22,16 @@ public class Event {
     private String msgType;
     @XStreamAlias("Event")
     private String event;
+    @XStreamAlias("EventKey")
+    private String eventKey;
+    @XStreamAlias("Ticket")
+    private String ticket;
+    @XStreamAlias("Latitude")
+    private float latitude;
+    @XStreamAlias("Longitude")
+    private float longitude;
+    @XStreamAlias("Precision")
+    private float precision;
 
     /**
      * 订阅
@@ -53,51 +63,60 @@ public class Event {
      */
     public static final String VIEW_EVENT = "VIEW";
 
-    public Event(String toUserName, String fromUserName, long createTime, String msgType, String event) {
+    public Event() {
+    }
+
+    public Event(String toUserName, String fromUserName, long createTime, String msgType, String event, String eventKey, String ticket,
+                 float latitude, float longitude, float precision) {
         this.toUserName = toUserName;
         this.fromUserName = fromUserName;
         this.createTime = createTime;
         this.msgType = msgType;
         this.event = event;
+        this.eventKey = eventKey;
+        this.ticket = ticket;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.precision = precision;
     }
 
     public String getToUserName() {
         return toUserName;
     }
 
-    public void setToUserName(String toUserName) {
-        this.toUserName = toUserName;
-    }
-
     public String getFromUserName() {
         return fromUserName;
-    }
-
-    public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
     }
 
     public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
-    }
-
     public String getMsgType() {
         return msgType;
-    }
-
-    public void setMsgType(String msgType) {
-        this.msgType = msgType;
     }
 
     public String getEvent() {
         return event;
     }
 
-    public void setEvent(String event) {
-        this.event = event;
+    public String getEventKey() {
+        return eventKey;
+    }
+
+    public String getTicket() {
+        return ticket;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public float getPrecision() {
+        return precision;
     }
 }

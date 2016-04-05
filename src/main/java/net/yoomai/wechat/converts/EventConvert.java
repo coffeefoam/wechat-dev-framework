@@ -4,8 +4,6 @@
  */
 package net.yoomai.wechat.converts;
 
-import net.yoomai.wechat.beans.events.QRsceneEvent;
-import net.yoomai.wechat.beans.events.SubscribeEvent;
 import net.yoomai.wechat.exceptions.ConvertException;
 import net.yoomai.wechat.utils.XmlUtils;
 
@@ -14,7 +12,6 @@ import net.yoomai.wechat.utils.XmlUtils;
  * @(#)EventConvert.java 1.0 04/04/2016
  */
 public class EventConvert extends AppConvert {
-
     /**
      * 将通知的xml信息格式化为对象
      *
@@ -34,11 +31,7 @@ public class EventConvert extends AppConvert {
             throw new ConvertException("初始化格式化对象时发生错误", e);
         }
 
-        if (o instanceof SubscribeEvent) {
-            o = (T) convertSubscribeEvent(xmlContent);
-        } else if (o instanceof QRsceneEvent) {
-            o = (T) convertQRsceneEvent(xmlContent);
-        }
+        o = XmlUtils.toBean(xmlContent, clazz);
 
         return o;
     }
@@ -53,30 +46,5 @@ public class EventConvert extends AppConvert {
     @Override
     public String reverse(Object o) throws ConvertException {
         return null;
-    }
-
-
-    // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    // PRIVATE METHODS.
-    // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-    /**
-     * 格式化订阅或取消订阅的事件通知
-     *
-     * @param xmlContent
-     * @return
-     */
-    private SubscribeEvent convertSubscribeEvent(String xmlContent) {
-        return XmlUtils.toBean(xmlContent, SubscribeEvent.class);
-    }
-
-    /**
-     * 格式化扫描带参数二维码的事件通知
-     *
-     * @param xmlContent
-     * @return
-     */
-    private QRsceneEvent convertQRsceneEvent(String xmlContent) {
-        return XmlUtils.toBean(xmlContent, QRsceneEvent.class);
     }
 }
