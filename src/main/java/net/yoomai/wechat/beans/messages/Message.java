@@ -23,6 +23,29 @@ public class Message {
     private String msgType;
     @XStreamAlias("MsgId")
     private long msgId;
+    @XStreamAlias("PicUrl")
+    private String picUrl;
+    @XStreamAlias("MediaId")
+    private String mediaId;
+    @XStreamAlias("Format")
+    private String format;
+    @XStreamAlias("ThumbMediaId")
+    private String thumbMediaId;
+    @XStreamAlias("Location_X")
+    private float locationX;
+    @XStreamAlias("Location_Y")
+    private float locationY;
+    @XStreamAlias("Scale")
+    private float scale;
+    @XStreamAlias("Label")
+    private String label;
+    @XStreamAlias("Title")
+    private String title;
+    @XStreamAlias("Description")
+    private String description;
+    @XStreamAlias("Url")
+    private String url;
+
 
     /**
      * 文本消息
@@ -69,43 +92,91 @@ public class Message {
      */
     public static final String EVENT = "event";
 
-    public String getToUserName() {
-        return toUserName;
+    public Message() {
     }
 
-    public void setToUserName(String toUserName) {
+    public Message(String toUserName, String fromUserName, long createTime, String msgType, long msgId, String picUrl, String mediaId,
+                   String format, String thumbMediaId, float locationX, float locationY, float scale, String label, String title,
+                   String description, String url) {
         this.toUserName = toUserName;
+        this.fromUserName = fromUserName;
+        this.createTime = createTime;
+        this.msgType = msgType;
+        this.msgId = msgId;
+        this.picUrl = picUrl;
+        this.mediaId = mediaId;
+        this.format = format;
+        this.thumbMediaId = thumbMediaId;
+        this.locationX = locationX;
+        this.locationY = locationY;
+        this.scale = scale;
+        this.label = label;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+    }
+
+    public String getToUserName() {
+        return toUserName;
     }
 
     public String getFromUserName() {
         return fromUserName;
     }
 
-    public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
-    }
-
     public long getCreateTime() {
         return createTime;
-    }
-
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
     }
 
     public String getMsgType() {
         return msgType;
     }
 
-    public void setMsgType(String msgType) {
-        this.msgType = msgType;
-    }
-
     public long getMsgId() {
         return msgId;
     }
 
-    public void setMsgId(long msgId) {
-        this.msgId = msgId;
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public String getMediaId() {
+        return mediaId;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public String getThumbMediaId() {
+        return thumbMediaId;
+    }
+
+    public float getLocationX() {
+        return locationX;
+    }
+
+    public float getLocationY() {
+        return locationY;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }
