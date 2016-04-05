@@ -2,7 +2,7 @@
  * Copyright (c) 2014, wolaiyee.com. All rights reserved.
  * wolaiyee.com. Use is subject to license terms.
  */
-package net.yoomai.wechat.beans.messages;
+package net.yoomai.wechat.beans.events;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -52,6 +52,14 @@ public class Event {
      * 点击菜单跳转链接事件
      */
     public static final String VIEW_EVENT = "VIEW";
+
+    public Event(String toUserName, String fromUserName, long createTime, String msgType, String event) {
+        this.toUserName = toUserName;
+        this.fromUserName = fromUserName;
+        this.createTime = createTime;
+        this.msgType = msgType;
+        this.event = event;
+    }
 
     public String getToUserName() {
         return toUserName;
