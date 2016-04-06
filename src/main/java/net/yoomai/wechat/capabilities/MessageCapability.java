@@ -5,6 +5,7 @@
 package net.yoomai.wechat.capabilities;
 
 import com.google.gson.Gson;
+import net.yoomai.wechat.beans.events.Event;
 import net.yoomai.wechat.beans.messages.CustomMessage;
 import net.yoomai.wechat.beans.messages.Message;
 import net.yoomai.wechat.beans.messages.TemplateMessage;
@@ -18,7 +19,7 @@ import net.yoomai.wechat.utils.WebUtils;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)MessageCapability.java 1.0 27/11/2015
  */
-public class MessageCapability {
+public class MessageCapability<T> {
     /**
      * 客服消息发送地址
      */
@@ -53,15 +54,5 @@ public class MessageCapability {
         String message = gson.toJson(templateMessage);
 
         WebUtils.post(_TEMPLATE_SEND_, message, WechatConfig._DATA_JSON_, false, null);
-    }
-
-    /**
-     * 接受消息
-     *
-     * @param message
-     * @param command
-     */
-    public void recieve(Message message, Command command) {
-
     }
 }
