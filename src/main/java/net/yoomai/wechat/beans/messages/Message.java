@@ -12,6 +12,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)Message.java 1.0 28/11/2015
  */
+@XStreamAlias("xml")
 public class Message {
     @XStreamAlias("ToUserName")
     private String toUserName;
@@ -19,6 +20,8 @@ public class Message {
     private String fromUserName;
     @XStreamAlias("CreateTime")
     private long createTime;
+    @XStreamAlias("Content")
+    private String content;
     @XStreamAlias("MsgType")
     private String msgType;
     @XStreamAlias("MsgId")
@@ -95,12 +98,19 @@ public class Message {
     public Message() {
     }
 
-    public Message(String toUserName, String fromUserName, long createTime, String msgType, long msgId, String picUrl, String mediaId,
-                   String format, String thumbMediaId, float locationX, float locationY, float scale, String label, String title,
-                   String description, String url) {
+    public Message(String toUserName, String fromUserName, long createTime, String content, String msgType) {
         this.toUserName = toUserName;
         this.fromUserName = fromUserName;
         this.createTime = createTime;
+        this.content = content;
+        this.msgType = msgType;
+    }
+
+    public Message(String toUserName, String fromUserName, long createTime, String content, String msgType, long msgId, String picUrl, String mediaId, String format, String thumbMediaId, float locationX, float locationY, float scale, String label, String title, String description, String url) {
+        this.toUserName = toUserName;
+        this.fromUserName = fromUserName;
+        this.createTime = createTime;
+        this.content = content;
         this.msgType = msgType;
         this.msgId = msgId;
         this.picUrl = picUrl;

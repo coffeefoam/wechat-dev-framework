@@ -19,7 +19,7 @@ import net.yoomai.wechat.utils.WebUtils;
  * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
  * @(#)MessageCapability.java 1.0 27/11/2015
  */
-public class MessageCapability<T> {
+public class MessageCapability extends AbstractCapability{
     /**
      * 客服消息发送地址
      */
