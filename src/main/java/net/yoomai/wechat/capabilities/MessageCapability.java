@@ -5,6 +5,7 @@
 package net.yoomai.wechat.capabilities;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.yoomai.wechat.beans.events.Event;
 import net.yoomai.wechat.beans.messages.CustomMessage;
 import net.yoomai.wechat.beans.messages.Message;
@@ -37,8 +38,9 @@ public class MessageCapability extends AbstractCapability{
      * @param accessToken
      */
     public void sendCustomMessage(CustomMessage cmessage, String accessToken) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         String message = gson.toJson(cmessage);
+        logger.debug("发送的消息是\n {}", message);
 
         String url = _CUSTOMER_SEND_ + "?access_token=" + accessToken;
         WebUtils.post(url, message, WechatConfig._DATA_JSON_, false, null);
