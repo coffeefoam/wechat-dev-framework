@@ -6,6 +6,7 @@ package net.yoomai.wechat.capabilities;
 
 import net.yoomai.wechat.beans.payment.*;
 import net.yoomai.wechat.beans.payment.bizpay.BizpayParams;
+import net.yoomai.wechat.beans.payment.bizpay.BizpayResponse;
 import net.yoomai.wechat.commands.Command;
 import net.yoomai.wechat.config.WechatConfig;
 import net.yoomai.wechat.converts.AppConvert;
@@ -270,5 +271,33 @@ public class PaymentCapability extends AbstractCapability {
      */
     public BizpayParams getBizpayParams(String content) throws ConvertException {
         return convert.convert(content, BizpayParams.class);
+    }
+
+    /**
+     * 通过统一下单接口返回的信息,生成扫码支付的回应信息
+     *
+     * @param payStatus
+     * @return
+     */
+    public BizpayResponse getBizpayResponse(PayStatus payStatus) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("return_code", payStatus.getReturnCode());
+        params.put("return_msg", payStatus.getReturnMsg());
+        params.put("appid", payStatus.getAppId());
+        params.put("mch_id", payStatus.getMchId());
+        params.put("nonce_str", payStatus.getNonceStr());
+        params.put("prepay_id", payStatus.getPrepayId());
+        params.put("result_code", payStatus.getResultCode());
+        if ("FAIL".equals(payStatus.getResultCode())) {
+            params.put("err_code_des", payStatus.getErrorCodeDesc());
+        }
+        String buffer = StringUtils.generateQueryString(params, true);
+        buffer += "&key=" + wxConfig.getMchKey();
+        String sign = StringUtils.signature(buffer, "MD5", true);
+
+        BizpayResponse bizpayResponse = new BizpayResponse(payStatus.getReturnCode(), payStatus.getReturnMsg(),
+                payStatus.getAppId(), payStatus.getMchId(), payStatus.getNonceStr(), payStatus.getPrepayId(),
+                payStatus.getResultCode(), payStatus.getErrorCodeDesc(), sign);
+        return bizpayResponse;
     }
 }

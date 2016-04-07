@@ -36,11 +36,13 @@ public class PayStatus {
     private String errorCode;
     @XStreamAlias("err_code_des")
     private String errorCodeDesc;
+    @XStreamAlias("code_url")
+    private String codeUrl;
 
     public PayStatus() {}
 
     public PayStatus(String returnCode, String returnMsg, String appId, String mchId, String nonceStr, String sign,
-                     String resultCode, String prepayId, String tradeType, String errorCode, String errorCodeDesc) {
+                     String resultCode, String prepayId, String tradeType, String errorCode, String errorCodeDesc, String codeUrl) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
         this.appId = appId;
@@ -52,6 +54,7 @@ public class PayStatus {
         this.tradeType = tradeType;
         this.errorCode = errorCode;
         this.errorCodeDesc = errorCodeDesc;
+        this.codeUrl = codeUrl;
     }
 
     public String getReturnCode() {
@@ -96,5 +99,9 @@ public class PayStatus {
 
     public String getErrorCodeDesc() {
         return errorCodeDesc;
+    }
+
+    public String getCodeUrl() {
+        return codeUrl;
     }
 }
