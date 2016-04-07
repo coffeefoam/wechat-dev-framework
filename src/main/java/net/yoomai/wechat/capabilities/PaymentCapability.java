@@ -5,6 +5,7 @@
 package net.yoomai.wechat.capabilities;
 
 import net.yoomai.wechat.beans.payment.*;
+import net.yoomai.wechat.beans.payment.bizpay.BizpayParams;
 import net.yoomai.wechat.commands.Command;
 import net.yoomai.wechat.config.WechatConfig;
 import net.yoomai.wechat.converts.AppConvert;
@@ -258,5 +259,16 @@ public class PaymentCapability extends AbstractCapability {
                 "&product_id=" + productId + "&time_stamp=" + timestamp + "&nonce_str=" + nonceStr;
 
         return bizpayURL;
+    }
+
+    /**
+     * 将xml信息转换为扫码支付的请求参数对象
+     *
+     * @param content
+     * @return
+     * @throws ConvertException
+     */
+    public BizpayParams getBizpayParams(String content) throws ConvertException {
+        return convert.convert(content, BizpayParams.class);
     }
 }
