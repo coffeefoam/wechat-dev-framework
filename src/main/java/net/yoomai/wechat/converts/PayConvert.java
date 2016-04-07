@@ -5,6 +5,8 @@
 package net.yoomai.wechat.converts;
 
 import net.yoomai.wechat.beans.payment.*;
+import net.yoomai.wechat.beans.payment.bizpay.BizpayParams;
+import net.yoomai.wechat.beans.payment.bizpay.BizpayResponse;
 import net.yoomai.wechat.exceptions.ConvertException;
 import net.yoomai.wechat.utils.XmlUtils;
 import org.slf4j.Logger;
@@ -35,8 +37,10 @@ public class PayConvert extends AppConvert {
             o = (T) convertOrderQueryResponse(xmlContent);
         } else if (o instanceof RefundResponse) {
             o = (T) convertRefundResponse(xmlContent);
-        } else if(o instanceof NotifyStatus) {
+        } else if (o instanceof NotifyStatus) {
             o = (T) convertNotifyStatus(xmlContent);
+        } else if (o instanceof BizpayParams) {
+            o = (T) convertBizpayParams(xmlContent);
         } else {
             throw new ConvertException("格式化支付响应信息目前只支持点对点回调状态，订单查询响应以及退款操作的响应三种类型");
         }
@@ -51,6 +55,8 @@ public class PayConvert extends AppConvert {
             return reverseOrderQueryParams((OrderQueryParams) o);
         } else if (o instanceof RefundParams) {
             return reverseRefundParams((RefundParams) o);
+        } else if (o instanceof BizpayResponse) {
+            return reverseBizpayResponse((BizpayResponse) o);
         } else {
             throw new ConvertException("支付相关参数转换只支持支付参数，退款参数以及订单查询参数三种类型.");
         }
@@ -91,6 +97,16 @@ public class PayConvert extends AppConvert {
     }
 
     /**
+     * 转换扫码支付响应
+     *
+     * @param bizpayResponse
+     * @return
+     */
+    private String reverseBizpayResponse(BizpayResponse bizpayResponse) {
+        return XmlUtils.toXML(bizpayResponse);
+    }
+
+    /**
      * 格式化支付响应
      *
      * @param xmlContent
@@ -123,11 +139,22 @@ public class PayConvert extends AppConvert {
 
     /**
      * 格式化退款响应信息
-     *N
+     * N
+     *
      * @param xmlContent
      * @return
      */
     private RefundResponse convertRefundResponse(String xmlContent) {
         return XmlUtils.toBean(xmlContent, RefundResponse.class);
+    }
+
+    /**
+     * 格式化接收到的扫码支付信息
+     *
+     * @param xmlContent
+     * @return
+     */
+    private BizpayParams convertBizpayParams(String xmlContent) {
+        return XmlUtils.toBean(xmlContent, BizpayParams.class);
     }
 }
