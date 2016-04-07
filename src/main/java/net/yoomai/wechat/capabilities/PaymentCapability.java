@@ -231,4 +231,32 @@ public class PaymentCapability extends AbstractCapability {
 
         return convert.convert(ret, RefundResponse.class);
     }
+
+    /**
+     * 生成扫码支付所用的链接地址
+     *
+     * @param productId
+     * @param timestamp
+     * @param nonceStr
+     * @return
+     */
+    public String generateBizpayURL(String productId, String timestamp, String nonceStr) {
+        String bizpayURL = "weixin://wxpay/bizpayurl";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("appid", wxConfig.getAppid());
+        params.put("mch_id", wxConfig.getMchid());
+        params.put("time_stamp", timestamp);
+        params.put("nonce_str", nonceStr);
+        params.put("product_id", productId);
+
+        String buffer = StringUtils.generateQueryString(params, true);
+        buffer += "&key=" + wxConfig.getMchKey();
+        String sign = StringUtils.signature(buffer, "MD5", true);
+
+        bizpayURL += "?sign=" + sign + "&appid=" + wxConfig.getAppid() + "&mch_id=" + wxConfig.getMchid() +
+                "&product_id=" + productId + "&time_stamp=" + timestamp + "&nonce_str=" + nonceStr;
+
+        return bizpayURL;
+    }
 }
