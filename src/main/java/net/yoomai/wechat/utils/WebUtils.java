@@ -18,6 +18,7 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -131,6 +133,7 @@ public class WebUtils {
         return result;
     }
 
+
     /**
      * 提交xml或者json数据到指定的地址
      *
@@ -143,7 +146,32 @@ public class WebUtils {
     public static String post(String url, String obj, String type, boolean cert, SSLContext sslContext) {
         String result = null;
 
+        List<NameValuePair> headers = new ArrayList<>();
+        if (WechatConfig._DATA_XML_.equals(type)) {
+            headers.add(new BasicNameValuePair("Content-Type", "text/xml"));
+        } else if (WechatConfig._DATA_JSON_.equals(type)) {
+            headers.add(new BasicNameValuePair("Content-Type", "application/json"));
+        }
+
+        return post(url, obj, headers, cert, sslContext);
+    }
+
+    /**
+     * 提交xml或者json数据到指定的地址
+     *
+     * @param url
+     * @param obj
+     * @param headers
+     * @param cert
+     * @param sslContext
+     * @return
+     */
+    public static String post(String url, String obj, List<NameValuePair> headers, boolean cert, SSLContext sslContext) {
+        String result = null;
+
         CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);
+
         if (cert) {
             try {
                 // Allow TLSv1 protocol only
@@ -158,11 +186,8 @@ public class WebUtils {
             }
         }
 
-        HttpPost httpPost = new HttpPost(url);
-        if (WechatConfig._DATA_XML_.equals(type)) {
-            httpPost.setHeader("Content-Type", "text/xml");
-        } else if (WechatConfig._DATA_JSON_.equals(type)) {
-            httpPost.setHeader("Content-Type", "application/json");
+        for (NameValuePair nameValuePair : headers) {
+            httpPost.setHeader(nameValuePair.getName(), nameValuePair.getValue());
         }
 
         StringEntity entity = new StringEntity(obj, "UTF-8");
