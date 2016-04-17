@@ -326,7 +326,7 @@ public class PaymentCapability extends AbstractCapability {
                 "OPTION_CHECK", amount, desc, ip);
         SSLContext sslContext = initSSLContext();
         String params_xml_form = convert.reverse(transferParams);
-        String ret = WebUtils.post(_REFUND_URL_, params_xml_form, WechatConfig._DATA_XML_, true, sslContext);
+        String ret = WebUtils.post(_MK_TRANSFERS_, params_xml_form, WechatConfig._DATA_XML_, true, sslContext);
 
         return convert.convert(ret, TransferResponse.class);
     }
