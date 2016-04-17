@@ -336,6 +336,32 @@ public class PaymentCapability extends AbstractCapability {
         return convert.convert(ret, TransferResponse.class);
     }
 
+    /**
+     * 进行企业支付查询
+     *
+     * @param tradeNo
+     * @return
+     */
+    public TransferQueryResponse queryMkTransfer(String tradeNo) throws PaymentException, ConvertException {
+        String nonceStr = StringUtils.randomString(16);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("nonce_str", nonceStr);
+        params.put("partner_trade_no", tradeNo);
+        params.put("mch_id", wxConfig.getMchid());
+        params.put("appid", wxConfig.getAppid());
+        String buffer = StringUtils.generateQueryString(params, true);
+        buffer += "&key=" + wxConfig.getMchKey();
+        String sign = StringUtils.signature(buffer, "MD5", true);
+
+        TransferQueryParams transferQueryParams = new TransferQueryParams(nonceStr, sign, tradeNo, wxConfig.getMchid(), wxConfig.getAppid());
+        SSLContext sslContext = initSSLContext();
+        String params_xml_form = convert.reverse(transferQueryParams);
+        String ret = WebUtils.post(_MK_TRANSFER_QUERY_URL_, params_xml_form, WechatConfig._DATA_XML_, true, sslContext);
+
+        return convert.convert(ret, TransferQueryResponse.class);
+    }
+
 
 
     /* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
