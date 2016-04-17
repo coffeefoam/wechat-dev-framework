@@ -41,6 +41,10 @@ public class PayConvert extends AppConvert {
             o = (T) convertNotifyStatus(xmlContent);
         } else if (o instanceof BizpayParams) {
             o = (T) convertBizpayParams(xmlContent);
+        } else if (o instanceof TransferResponse) {
+            o = (T) convertTransferResponse(xmlContent);
+        } else if (o instanceof TransferQueryResponse) {
+            o = (T) convertTransferQueryResponse(xmlContent);
         } else {
             throw new ConvertException("格式化支付响应信息目前只支持点对点回调状态，订单查询响应以及退款操作的响应三种类型");
         }
@@ -57,6 +61,10 @@ public class PayConvert extends AppConvert {
             return reverseRefundParams((RefundParams) o);
         } else if (o instanceof BizpayResponse) {
             return reverseBizpayResponse((BizpayResponse) o);
+        } else if (o instanceof TransferParams) {
+            return reverseTransferParams((TransferParams) o);
+        } else if (o instanceof TransferQueryParams) {
+            return reverseTransferQueryParams((TransferQueryParams) o);
         } else {
             throw new ConvertException("支付相关参数转换只支持支付参数，退款参数以及订单查询参数三种类型.");
         }
@@ -114,6 +122,16 @@ public class PayConvert extends AppConvert {
      */
     private String reverseTransferParams(TransferParams transferParams) {
         return XmlUtils.toXML(transferParams);
+    }
+
+    /**
+     * 转换企业支付查询请求参数
+     *
+     * @param transferQueryParams
+     * @return
+     */
+    private String reverseTransferQueryParams(TransferQueryParams transferQueryParams) {
+        return XmlUtils.toXML(transferQueryParams);
     }
 
 
@@ -177,5 +195,15 @@ public class PayConvert extends AppConvert {
      */
     private TransferResponse convertTransferResponse(String xmlContent) {
         return XmlUtils.toBean(xmlContent, TransferResponse.class);
+    }
+
+    /**
+     * 格式化企业支付查询的响应信息
+     *
+     * @param xmlContent
+     * @return
+     */
+    private TransferQueryResponse convertTransferQueryResponse(String xmlContent) {
+        return XmlUtils.toBean(xmlContent, TransferQueryResponse.class);
     }
 }
