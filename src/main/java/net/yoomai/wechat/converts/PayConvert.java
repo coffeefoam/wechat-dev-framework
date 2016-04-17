@@ -107,6 +107,17 @@ public class PayConvert extends AppConvert {
     }
 
     /**
+     * 转换企业支付请求参数
+     *
+     * @param transferParams
+     * @return
+     */
+    private String reverseTransferParams(TransferParams transferParams) {
+        return XmlUtils.toXML(transferParams);
+    }
+
+
+    /**
      * 格式化支付响应
      *
      * @param xmlContent
@@ -156,5 +167,15 @@ public class PayConvert extends AppConvert {
      */
     private BizpayParams convertBizpayParams(String xmlContent) {
         return XmlUtils.toBean(xmlContent, BizpayParams.class);
+    }
+
+    /**
+     * 格式化接收到的企业支付响应
+     *
+     * @param xmlContent
+     * @return
+     */
+    private TransferResponse convertTransferResponse(String xmlContent) {
+        return XmlUtils.toBean(xmlContent, TransferResponse.class);
     }
 }
