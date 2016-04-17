@@ -53,6 +53,11 @@ public class PaymentCapability extends AbstractCapability {
     private static final String _REFUND_URL_ = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 
     /**
+     * 企业付款
+     */
+    private static final String _MK_TRANSFERS_ = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+
+    /**
      * 默认的转换模块是payconvert
      */
     public PaymentCapability() {
