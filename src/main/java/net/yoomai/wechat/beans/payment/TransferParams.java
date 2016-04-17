@@ -28,8 +28,6 @@ public class TransferParams {
     private String openid;
     @XStreamAlias("check_name")
     private String checkName;
-    @XStreamAlias("re_user_name")
-    private String reUserName;
     @XStreamAlias("amount")
     private int amount;
     @XStreamAlias("desc")
@@ -41,7 +39,7 @@ public class TransferParams {
     }
 
     public TransferParams(String appid, String mchId, String nonceStr, String sign, String tradeNo, String openid, String checkName,
-                          String reUserName, int amount, String desc, String ip) {
+                          int amount, String desc, String ip) {
         this.appid = appid;
         this.mchId = mchId;
         this.nonceStr = nonceStr;
@@ -49,7 +47,6 @@ public class TransferParams {
         this.tradeNo = tradeNo;
         this.openid = openid;
         this.checkName = checkName;
-        this.reUserName = reUserName;
         this.amount = amount;
         this.desc = desc;
         this.ip = ip;
@@ -81,10 +78,6 @@ public class TransferParams {
 
     public String getCheckName() {
         return checkName;
-    }
-
-    public String getReUserName() {
-        return reUserName;
     }
 
     public int getAmount() {

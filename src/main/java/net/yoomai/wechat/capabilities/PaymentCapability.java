@@ -221,18 +221,7 @@ public class PaymentCapability extends AbstractCapability {
         );
         String params_xml_form = convert.reverse(refundParams);
         // 初始化证书, 证书位置为classes目录
-        SSLContext sslContext = null;
-        try {
-            KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            FileInputStream inputStream = new FileInputStream(new File(wxConfig.getMchPKCs()));
-            keyStore.load(inputStream, wxConfig.getMchid().toCharArray());
-            // Trust own CA and all self-signed certs
-            sslContext = SSLContexts.custom()
-                    .loadKeyMaterial(keyStore, wxConfig.getMchid().toCharArray())
-                    .build();
-        } catch (Exception e) {
-            throw new PaymentException("在进行退款时发生了证书初始化错误.", e);
-        }
+        SSLContext sslContext = initSSLContext();
 
         String ret = WebUtils.post(_REFUND_URL_, params_xml_form, WechatConfig._DATA_XML_, true, sslContext);
 
@@ -304,5 +293,71 @@ public class PaymentCapability extends AbstractCapability {
                 payStatus.getAppId(), payStatus.getMchId(), payStatus.getNonceStr(), payStatus.getPrepayId(),
                 payStatus.getResultCode(), payStatus.getErrorCodeDesc(), sign);
         return bizpayResponse;
+    }
+
+    /**
+     * 进行企业支付付款操作
+     *
+     * @param tradeNo
+     * @param openid
+     * @param amount
+     * @param desc
+     * @param ip
+     * @return
+     */
+    public TransferResponse mkTransfer(String tradeNo, String openid, int amount, String desc, String ip) throws PaymentException, ConvertException {
+        String nonceStr = StringUtils.randomString(16);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("mch_appid", wxConfig.getAppid());
+        params.put("mchid", wxConfig.getMchid());
+        params.put("nonce_str", nonceStr);
+        params.put("partner_trade_no", tradeNo);
+        params.put("openid", openid);
+        params.put("check_name", "NO_CHECK");
+        params.put("amount", amount);
+        params.put("desc", desc);
+        params.put("spbill_create_ip", ip);
+        String buffer = StringUtils.generateQueryString(params, true);
+        buffer += "&key=" + wxConfig.getMchKey();
+        String sign = StringUtils.signature(buffer, "MD5", true);
+
+        TransferParams transferParams = new TransferParams(wxConfig.getAppid(), wxConfig.getMchid(), nonceStr, sign, tradeNo, openid,
+                "OPTION_CHECK", amount, desc, ip);
+        SSLContext sslContext = initSSLContext();
+        String params_xml_form = convert.reverse(transferParams);
+        String ret = WebUtils.post(_REFUND_URL_, params_xml_form, WechatConfig._DATA_XML_, true, sslContext);
+
+        return convert.convert(ret, TransferResponse.class);
+    }
+
+
+
+    /* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
+    /*         Private Methods         */
+    /* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
+
+    /**
+     * 初始化SSL证书
+     *
+     * @return
+     * @throws PaymentException
+     */
+    private SSLContext initSSLContext() throws PaymentException {
+        // 初始化证书, 证书位置为classes目录
+        SSLContext sslContext = null;
+        try {
+            KeyStore keyStore = KeyStore.getInstance("PKCS12");
+            FileInputStream inputStream = new FileInputStream(new File(wxConfig.getMchPKCs()));
+            keyStore.load(inputStream, wxConfig.getMchid().toCharArray());
+            // Trust own CA and all self-signed certs
+            sslContext = SSLContexts.custom()
+                    .loadKeyMaterial(keyStore, wxConfig.getMchid().toCharArray())
+                    .build();
+        } catch (Exception e) {
+            throw new PaymentException("在进行退款时发生了证书初始化错误.", e);
+        }
+
+        return sslContext;
     }
 }
