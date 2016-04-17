@@ -55,7 +55,12 @@ public class PaymentCapability extends AbstractCapability {
     /**
      * 企业付款
      */
-    private static final String _MK_TRANSFERS_ = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+    private static final String _MK_TRANSFERS_URL_ = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+
+    /**
+     * 企业付款查询
+     */
+    private static final String _MK_TRANSFER_QUERY_URL_ = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
 
     /**
      * 默认的转换模块是payconvert
@@ -326,7 +331,7 @@ public class PaymentCapability extends AbstractCapability {
                 "OPTION_CHECK", amount, desc, ip);
         SSLContext sslContext = initSSLContext();
         String params_xml_form = convert.reverse(transferParams);
-        String ret = WebUtils.post(_MK_TRANSFERS_, params_xml_form, WechatConfig._DATA_XML_, true, sslContext);
+        String ret = WebUtils.post(_MK_TRANSFERS_URL_, params_xml_form, WechatConfig._DATA_XML_, true, sslContext);
 
         return convert.convert(ret, TransferResponse.class);
     }
