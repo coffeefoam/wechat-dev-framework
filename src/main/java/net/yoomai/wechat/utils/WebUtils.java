@@ -61,10 +61,23 @@ public class WebUtils {
      * @return 如果发生IO异常，则会返回null
      */
     public static String get(String url) {
+        return get(url, new ArrayList<NameValuePair>());
+    }
+
+    /**
+     * GET方法获得网络信息
+     *
+     * @param url 带参数的地址
+     * @return 如果发生IO异常，则会返回null
+     */
+    public static String get(String url, List<NameValuePair> headers) {
         String result = null;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
+        for (NameValuePair header : headers) {
+            httpGet.setHeader(header.getName(), header.getValue());
+        }
         CloseableHttpResponse response = null;
         try {
             response = httpClient.execute(httpGet);
@@ -87,6 +100,7 @@ public class WebUtils {
         }
 
         return result;
+
     }
 
     /**
