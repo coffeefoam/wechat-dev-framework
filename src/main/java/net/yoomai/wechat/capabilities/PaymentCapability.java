@@ -310,7 +310,8 @@ public class PaymentCapability extends AbstractCapability {
      * @param ip
      * @return
      */
-    public TransferResponse mkTransfer(String tradeNo, String openid, int amount, String desc, String ip) throws PaymentException, ConvertException {
+    public TransferResponse mkTransfer(String tradeNo, String openid, String reUserName, int amount, String desc, String ip) throws PaymentException,
+            ConvertException {
         String nonceStr = StringUtils.randomString(16);
 
         Map<String, Object> params = new HashMap<>();
@@ -320,6 +321,7 @@ public class PaymentCapability extends AbstractCapability {
         params.put("partner_trade_no", tradeNo);
         params.put("openid", openid);
         params.put("check_name", "NO_CHECK");
+        params.put("re_user_name", reUserName);
         params.put("amount", amount);
         params.put("desc", desc);
         params.put("spbill_create_ip", ip);
@@ -328,7 +330,7 @@ public class PaymentCapability extends AbstractCapability {
         String sign = StringUtils.signature(buffer, "MD5", true);
 
         TransferParams transferParams = new TransferParams(wxConfig.getAppid(), wxConfig.getMchid(), nonceStr, sign, tradeNo, openid,
-                "OPTION_CHECK", amount, desc, ip);
+                "OPTION_CHECK", reUserName, amount, desc, ip);
         SSLContext sslContext = initSSLContext();
         String params_xml_form = convert.reverse(transferParams);
         String ret = WebUtils.post(_MK_TRANSFERS_URL_, params_xml_form, WechatConfig._DATA_XML_, true, sslContext);
