@@ -49,8 +49,10 @@ public class AuthCapability extends AbstractCapability {
 
         parameters.put("appid", wxConfig.getAppid());
         if (referer != null && !"".equals(referer.trim())) {
-            redirect = redirect + "?forward=" + referer;
+            redirect = redirect + "?forward=" + URLEncoder.encode(referer, "UTF-8");
         }
+
+        logger.debug("redirect {}", redirect);
         parameters.put("redirect_uri", URLEncoder.encode(redirect, "utf-8"));
         parameters.put("response_type", "code");
         parameters.put("scope", "snsapi_userinfo");
