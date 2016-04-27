@@ -22,6 +22,8 @@ public class TransferResponse {
     private String appid;
     @XStreamAlias("mchid")
     private String mchId;
+    @XStreamAlias("device_info")
+    private String deviceInfo;
     @XStreamAlias("nonce_str")
     private String nonceStr;
     @XStreamAlias("result_code")
@@ -40,12 +42,13 @@ public class TransferResponse {
     public TransferResponse() {
     }
 
-    public TransferResponse(String returnCode, String returnMsg, String appid, String mchId, String nonceStr, String resultCode,
+    public TransferResponse(String returnCode, String returnMsg, String appid, String mchId, String deviceInfo, String nonceStr, String resultCode,
                             String errorCode, String errorDesc, String tradeNo, String paymentNo, String paymentTime) {
         this.returnCode = returnCode;
         this.returnMsg = returnMsg;
         this.appid = appid;
         this.mchId = mchId;
+        this.deviceInfo = deviceInfo;
         this.nonceStr = nonceStr;
         this.resultCode = resultCode;
         this.errorCode = errorCode;
@@ -69,6 +72,10 @@ public class TransferResponse {
 
     public String getMchId() {
         return mchId;
+    }
+
+    public String getDeviceInfo() {
+        return deviceInfo;
     }
 
     public String getNonceStr() {

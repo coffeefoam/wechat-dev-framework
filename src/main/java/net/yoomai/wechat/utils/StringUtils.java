@@ -49,7 +49,7 @@ public class StringUtils {
                 buffer.append("&");
             }
         }
-        // log.debug("排列好的字符串: {}", buffer.toString());
+        log.debug("排列好的字符串: {}", buffer.toString());
         return buffer.toString();
     }
 

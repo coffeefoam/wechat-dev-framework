@@ -329,8 +329,10 @@ public class PaymentCapability extends AbstractCapability {
         buffer += "&key=" + wxConfig.getMchKey();
         String sign = StringUtils.signature(buffer, "MD5", true);
 
+        log.debug("{}", sign);
+
         TransferParams transferParams = new TransferParams(wxConfig.getAppid(), wxConfig.getMchid(), nonceStr, sign, tradeNo, openid,
-                "OPTION_CHECK", reUserName, amount, desc, ip);
+                "NO_CHECK", reUserName, amount, desc, ip);
         SSLContext sslContext = initSSLContext();
         String params_xml_form = convert.reverse(transferParams);
         String ret = WebUtils.post(_MK_TRANSFERS_URL_, params_xml_form, WechatConfig._DATA_XML_, true, sslContext);
