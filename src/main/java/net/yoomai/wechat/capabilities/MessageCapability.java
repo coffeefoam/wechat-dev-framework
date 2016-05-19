@@ -37,13 +37,13 @@ public class MessageCapability extends AbstractCapability{
      * @param customerMessage
      * @param accessToken
      */
-    public void sendCustomMessage(CustomMessage cmessage, String accessToken) {
+    public String sendCustomMessage(CustomMessage cmessage, String accessToken) {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         String message = gson.toJson(cmessage);
         logger.debug("发送的消息是\n {}", message);
 
         String url = _CUSTOMER_SEND_ + "?access_token=" + accessToken;
-        WebUtils.post(url, message, WechatConfig._DATA_JSON_, false, null);
+        return WebUtils.post(url, message, WechatConfig._DATA_JSON_, false, null);
     }
 
     /**
@@ -51,10 +51,10 @@ public class MessageCapability extends AbstractCapability{
      *
      * @param templateMessage
      */
-    public void sendTemplateMessage(TemplateMessage templateMessage) {
+    public String sendTemplateMessage(TemplateMessage templateMessage) {
         Gson gson = new Gson();
         String message = gson.toJson(templateMessage);
 
-        WebUtils.post(_TEMPLATE_SEND_, message, WechatConfig._DATA_JSON_, false, null);
+        return WebUtils.post(_TEMPLATE_SEND_, message, WechatConfig._DATA_JSON_, false, null);
     }
 }
