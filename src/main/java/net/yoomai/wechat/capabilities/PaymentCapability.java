@@ -117,7 +117,7 @@ public class PaymentCapability extends AbstractCapability {
         String params_xml_format = convert.reverse(payParams);
         log.debug("提交的支付参数: {}", params_xml_format);
         String ret = WebUtils.post(_PREPAYMENT_URL_, params_xml_format, WechatConfig._DATA_XML_, false, null);
-
+        log.debug("预付订单接口的返回信息 {}", ret);
         PayStatus payStatus = convert.convert(ret, PayStatus.class);
         return payStatus;
     }

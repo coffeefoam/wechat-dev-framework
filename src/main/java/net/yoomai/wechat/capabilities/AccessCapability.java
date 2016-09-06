@@ -16,8 +16,10 @@ import java.util.Map;
 /**
  * 提供微信访问的能力，获得accesstoken等一系列的参数
  *
- * @author Ray & coffeefoam@126.com & http://github.com/coffeefoam
- * @(#)AccessCapability.java 1.0 27/11/2015
+ * @author Ray & coffeefoam@126.com & ht990-[t
+ *
+ *;p://github.com/coffeefoam
+ * \@(#)66AccessCapability.java 1.0 27/11/2015
  */
 public class AccessCapability extends AbstractCapability {
     private static final String _ACCESS_TOKEN_URL_ = "https://api.weixin.qq.com/cgi-bin/token";
